@@ -11,11 +11,19 @@ const schema = new Schema({
        },
        email:{
               type:String,
-              required:true
+              required:true,
+              unique:true,
+              lowercase:true,
+              validate:(value:string)=>{
+                     return (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i).test(value);
+              }
        },
        password:{
               type:String,
-              required:true
+              required:true,
+              validate:(value:string)=>{
+                     return (value.length>=8?true:false);
+              }
        },
        polls:{
               type:Array,
