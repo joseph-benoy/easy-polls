@@ -4,7 +4,7 @@ const server = process.env.DB;
 const database = "polls";
 const url = `mongodb://${server}/${database}`;
 // @ts-ignore
-mongoose.connect(url,{ useNewUrlParser: true ,useUnifiedTopology: true}).then((value)=>{
+mongoose.connect(url,{ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:true}).then((value)=>{
        console.log("Database connected");
 // @ts-ignore
 }).catch((reason)=>{

@@ -82,8 +82,9 @@ app.use("/user",routes.userRouter);
 
 
 
-
-
+app.use((err:any,req:any,res:any,next:any)=>{
+       res.status(400).json({error:err});
+})
 app.listen(config.PORT||5000,()=>{
        console.log(`Server started : ${config.PORT} .....`);
 })

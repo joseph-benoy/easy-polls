@@ -102,7 +102,6 @@ const Register = () => {
        if(flag==="password"){
               main.setAttribute('type','text');
               confirm.setAttribute('type','text');
-              setOpen(true);
        }
        else{
               main.setAttribute('type','password');
