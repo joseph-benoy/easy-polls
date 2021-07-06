@@ -11,6 +11,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import './login.scss'
 import {  useHistory } from 'react-router'
+import axios from 'axios';
+
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,20 +50,37 @@ const LoginPage = () => {
     e.preventDefault();
        const emailValue = document.getElementById('email').value;
        const passwordValue = document.getElementById('passwordMain').value;
+       let loginFlag = true;
        if(!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i).test(emailValue)){
-              setEmailError('Invalid email')
+              setEmailError('Invalid email');
+              loginFlag = false;
        }
        else{
               setEmailError('')
+              loginFlag = true;
        }
        if(passwordValue.length<8){
               setPasswordError('Password must 8 characters long');
+              loginFlag = false;
        }
        else{
               setPasswordError('');
+              loginFlag = true;
        }
-//    handleClose();
-  };
+       if(loginFlag){
+          let data = {
+            username:emailValue,
+            password:passwordValue
+          };
+          axios.post("/users/login",data)
+          .then((value)=>{
+            history.push("/dashboard");
+          })
+          .catch((err)=>{
+            console.log(err);
+          });
+       }
+    };
   const toggleShowPass = ()=>{
        var main = document.getElementById('passwordMain');
        const flag = document.getElementById('passwordMain').getAttribute('type');
@@ -73,7 +93,6 @@ const LoginPage = () => {
    }
   return (
        <>
-
        <AppBar className={classes.appbar} position="sticky">
               <Toolbar>
               <Typography align="center" variant="h5">Easy Polls</Typography>
