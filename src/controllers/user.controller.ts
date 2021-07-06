@@ -1,6 +1,8 @@
 import User from "../models/user.model";
 import { NextFunction, Request,Response } from 'express'
 const bcrypt = require('bcrypt');
+const jwt = require('../middlewares/jwt');
+
 
 export default{
        register:async (req:Request,res:Response,next:NextFunction)=>{
@@ -49,7 +51,12 @@ export default{
                      .then(async (value:any)=>{
                             let match = await bcrypt.compare(req.body.password,value.password);
                             if(match){
-                                   res.json({status:"success"})
+                                   let accessToken = jwt.createToken({id:value._id});
+                                   res.cookie('access-token',accessToken,{
+                                          // @ts-ignore
+                                          maxAge:new Date(253402300000000),
+                                          httpOnly:true
+                                      }).json({status:"success"})
                             }
                             else{
                                    next("Invalid password!");

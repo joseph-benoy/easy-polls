@@ -69,7 +69,7 @@ const LoginPage = () => {
        }
        if(loginFlag){
           let data = {
-            username:emailValue,
+            email:emailValue,
             password:passwordValue
           };
           axios.post("/user/login",data)
@@ -77,7 +77,12 @@ const LoginPage = () => {
             history.push("/dashboard");
           })
           .catch((err)=>{
-            console.log(err);
+            if(err.response.data.error==="Invalid password!"){
+              setPasswordError('Invalid password!');
+            }
+            else{
+              setEmailError("Invalid email!");
+            }
           });
        }
     };
