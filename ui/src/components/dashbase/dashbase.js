@@ -23,7 +23,8 @@ import {Route} from 'react-router-dom';
 import CreatePoll from '../createpoll/createpoll';
 import Home from '../home/home';
 import Stats from '../stats/stats';
-
+import { Link, useParams} from 'react-router-dom';
+import './dashbase.scss';
 
 const drawerWidth = 240;
 
@@ -95,10 +96,12 @@ export default function Dashbase() {
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
+    document.getElementById('drawer').style.display = "block";
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
+    document.getElementById('drawer').style.display = "none";
     setOpen(false);
   };
 
@@ -123,12 +126,12 @@ export default function Dashbase() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Mini variant drawer
+          <Typography variant="h5" noWrap style={{fontWeight:"bold"}}>
+            Easy Polls
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
+      <Drawer id="drawer"
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
