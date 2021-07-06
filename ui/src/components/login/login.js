@@ -74,7 +74,7 @@ const LoginPage = () => {
           };
           axios.post("/user/login",data)
           .then((value)=>{
-            history.push("/dashboard");
+            history.push("/dashboard/home");
           })
           .catch((err)=>{
             if(err.response.data.error==="Invalid password!"){
