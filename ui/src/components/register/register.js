@@ -40,8 +40,28 @@ const Register = ({ handleClose }) => {
        const [confirmPasswordError,setConfirmPasswordError] = useState('');
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(firstName, lastName, email, password);
-    handleClose();
+       const emailValue = document.getElementById('email').value;
+       const passwordValue = document.getElementById('passwordMain').value;
+       const confirmPasswordValue = document.getElementById('passwordConfirm').value;
+       if(!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i).test(emailValue)){
+              setEmailError('Invalid email')
+       }
+       else{
+              setEmailError('')
+       }
+       if(passwordValue!==confirmPasswordValue){
+              setConfirmPasswordError('Passwords don\'t match');
+       }
+       else{
+              setConfirmPasswordError('');
+       }
+       if(passwordValue.length<8){
+              setPasswordError('Password must 8 characters long');
+       }
+       else{
+              setPasswordError('');
+       }
+//    handleClose();
   };
   const toggleShowPass = ()=>{
        var main = document.getElementById('passwordMain');
@@ -50,7 +70,6 @@ const Register = ({ handleClose }) => {
        if(flag==="password"){
               main.setAttribute('type','text');
               confirm.setAttribute('type','text');
-              setEmailError('Invalid email');
        }
        else{
               main.setAttribute('type','password');
@@ -82,6 +101,7 @@ const Register = ({ handleClose }) => {
         onChange={e => setEmail(e.target.value)}
         helperText={emailError}
         error={emailError!==''?true:false}
+        id="email"
       />
       <TextField
         label="Password"
