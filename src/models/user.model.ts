@@ -22,7 +22,7 @@ const schema = new Schema({
               type:String,
               required:true,
               validate:(value:string)=>{
-                     return (value.length>=8?true:false);
+                     return (value.length>7?true:false);
               }
        },
        polls:{
