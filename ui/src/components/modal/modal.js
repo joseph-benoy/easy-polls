@@ -42,7 +42,7 @@ function rand() {
 
 
 
-const CModal = ({title,description,buttonText,open})=>{
+const CModal = ({title,description,buttonText,open,cb})=>{
        const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
        return (
@@ -54,7 +54,7 @@ const CModal = ({title,description,buttonText,open})=>{
                      <div style={modalStyle} className={classes.paper}>
                             <Typography variant="h4">{title}</Typography>
                             <Typography  variant="body1">{description}</Typography>
-                            <Button variant="contained" color="secondary">{buttonText}</Button>
+                            <Button variant="contained" color="secondary" onClick={cb}>{buttonText}</Button>
                      </div>
               </Modal>
        );
