@@ -4,9 +4,9 @@
   "description": "Online polls aggregator",
   "main": "index.js",
   "scripts": {
-    "start":"node ./build/index.js",
-    "dev":"nodemon ./src/index.ts",
-    "build":"tsc -p ."
+    "start": "node ./build/index.js",
+    "dev": "nodemon ./src/index.ts",
+    "build": "tsc -p ."
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,9 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.9",
     "mongoose": "^5.13.2",
