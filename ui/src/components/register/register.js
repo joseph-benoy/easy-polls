@@ -10,6 +10,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import './register.scss';
+import {  useHistory } from 'react-router'
+
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,8 +36,11 @@ const useStyles = makeStyles(theme => ({
      }
 }));
 
-const Register = ({ handleClose }) => {
-
+const Register = () => {
+  let history = useHistory();
+  const handleClose = ()=>{
+    history.push("/");
+  }
   const classes = useStyles();
   // create state variables for each input
   const [firstName, setFirstName] = useState('');
