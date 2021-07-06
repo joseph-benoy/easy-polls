@@ -22,15 +22,6 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import { useHistory } from 'react-router';
-
-
-
-
-
-
-
-
-
 import {Route} from 'react-router-dom';
 import CreatePoll from '../createpoll/createpoll';
 import Home from '../home/home';
@@ -113,12 +104,16 @@ export default function Dashbase() {
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
   const handleDrawerOpen = () => {
-    document.getElementById('drawer').style.display = "block";
+    if(window.screen.availWidth<1199){
+      document.getElementById('drawer').style.display = "block";
+    }
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
-    document.getElementById('drawer').style.display = "none";
+    if(window.screen.availWidth<1199){
+      document.getElementById('drawer').style.display = "none";
+    }    
     setOpen(false);
   };
 
