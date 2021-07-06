@@ -1,5 +1,4 @@
 /* eslint-disable no-useless-escape */
-/* eslint-disable no-useless-escape */
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
@@ -34,34 +33,23 @@ const useStyles = makeStyles(theme => ({
      }
 }));
 
-const Register = ({ handleClose }) => {
+const LoginPage = ({ handleClose }) => {
 
   const classes = useStyles();
   // create state variables for each input
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
        const [emailError,setEmailError] = useState('');
        const [passwordError,setPasswordError] = useState('');
-       const [confirmPasswordError,setConfirmPasswordError] = useState('');
   const handleSubmit = e => {
     e.preventDefault();
        const emailValue = document.getElementById('email').value;
        const passwordValue = document.getElementById('passwordMain').value;
-       const confirmPasswordValue = document.getElementById('passwordConfirm').value;
        if(!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i).test(emailValue)){
               setEmailError('Invalid email')
        }
        else{
               setEmailError('')
-       }
-       if(passwordValue!==confirmPasswordValue){
-              setConfirmPasswordError('Passwords don\'t match');
-       }
-       else{
-              setConfirmPasswordError('');
        }
        if(passwordValue.length<8){
               setPasswordError('Password must 8 characters long');
@@ -73,15 +61,12 @@ const Register = ({ handleClose }) => {
   };
   const toggleShowPass = ()=>{
        var main = document.getElementById('passwordMain');
-       var confirm = document.getElementById('passwordConfirm');
-       const flag = document.getElementById('passwordConfirm').getAttribute('type');
+       const flag = document.getElementById('passwordMain').getAttribute('type');
        if(flag==="password"){
               main.setAttribute('type','text');
-              confirm.setAttribute('type','text');
        }
        else{
               main.setAttribute('type','password');
-              confirm.setAttribute('type','password');    
        }
    }
   return (
@@ -93,20 +78,6 @@ const Register = ({ handleClose }) => {
               </Toolbar>
        </AppBar>
 <form className={classes.root} onSubmit={handleSubmit}>
-      <TextField
-        label="First Name"
-        variant="outlined"
-        required
-        value={firstName}
-        onChange={e => setFirstName(e.target.value)}
-      />
-      <TextField
-        label="Last Name"
-        variant="outlined"
-        required
-        value={lastName}
-        onChange={e => setLastName(e.target.value)}
-      />
       <TextField
         label="Email"
         variant="outlined"
@@ -128,17 +99,6 @@ const Register = ({ handleClose }) => {
         helperText={passwordError}
         id="passwordMain"
         error={passwordError!==''?true:false}
-      />
-       <TextField
-        label="Confirm password"
-        variant="outlined"
-        type="password"
-        required
-        value={confirmPassword}
-        id="passwordConfirm"
-        onChange={e => setConfirmPassword(e.target.value)}
-        helperText={confirmPasswordError}
-        error={confirmPasswordError!==''?true:false}
       />
       <FormControlLabel
         control={
@@ -163,4 +123,4 @@ const Register = ({ handleClose }) => {
   );
 };
 
-export default React.memo((Register));
+export default React.memo((LoginPage));
