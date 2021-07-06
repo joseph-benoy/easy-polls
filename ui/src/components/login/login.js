@@ -84,6 +84,7 @@ const LoginPage = () => {
           width:"30vw",
           margin:"0 auto"
         }}>
+          <Typography align="center" variant="h5" color="primary">Sign In</Typography>
       <TextField
         label="Email"
         variant="outlined"
