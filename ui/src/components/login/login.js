@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import './login.scss'
-
+import {  useHistory } from 'react-router'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LoginPage = () => {
-
+  let history = useHistory();
   const classes = useStyles();
   // create state variables for each input
   const [email, setEmail] = useState('');
@@ -122,6 +123,17 @@ const LoginPage = () => {
           Sign In
         </Button>
       </div>
+      <Link
+      underline	="none"
+          component="button"
+          variant="body1"
+          onClick={(e) => {
+            e.preventDefault();
+            history.push("/signup");
+          }}
+      >
+          Sign Up
+      </Link>
     </form>
     </>
   );
