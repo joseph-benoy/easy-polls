@@ -2,7 +2,6 @@ const {sign,verify,decode} = require('jsonwebtoken');
 const config = require('../config/config');
 
 const secret = config.JWT_SECRET;
-console.log(config.JWT_SECRET)
 
 const createToken = (payload:Object)=>{
     return sign(payload,secret);
