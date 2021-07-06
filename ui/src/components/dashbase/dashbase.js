@@ -15,8 +15,20 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
+import CreateIcon from '@material-ui/icons/Create';
+import InsertChartIcon from '@material-ui/icons/InsertChart';
+import SettingsIcon from '@material-ui/icons/Settings';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import { useHistory } from 'react-router';
+
+
+
+
+
+
+
 
 
 import {Route} from 'react-router-dom';
@@ -25,6 +37,11 @@ import Home from '../home/home';
 import Stats from '../stats/stats';
 import { Link, useParams} from 'react-router-dom';
 import './dashbase.scss';
+import Settings from '../settings/settings';
+import Edit from '../edit/edit';
+
+
+
 
 const drawerWidth = 240;
 
@@ -94,7 +111,7 @@ export default function Dashbase() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const history = useHistory();
   const handleDrawerOpen = () => {
     document.getElementById('drawer').style.display = "block";
     setOpen(true);
@@ -126,7 +143,7 @@ export default function Dashbase() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h5" noWrap style={{fontWeight:"bold"}}>
+          <Typography variant="h6" noWrap >
             Easy Polls
           </Typography>
         </Toolbar>
@@ -151,21 +168,33 @@ export default function Dashbase() {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+            <ListItem button key="home" onClick={()=>{history.push("/dashboard/polls/home")}}>
+              <ListItemIcon><HomeIcon/></ListItemIcon>
+              <ListItemText primary="Home" />
             </ListItem>
-          ))}
+            <ListItem button key="create"  onClick={()=>{history.push("/dashboard/polls/create")}}>
+              <ListItemIcon><NoteAddIcon/></ListItemIcon>
+              <ListItemText primary="Create" />
+            </ListItem>
+            <ListItem button key="stats" onClick={()=>{history.push("/dashboard/polls/stats")}}>
+              <ListItemIcon><InsertChartIcon/></ListItemIcon>
+              <ListItemText primary="Stats" />
+            </ListItem>
+            <ListItem button key="edit"  onClick={()=>{history.push("/dashboard/polls/edit")}}>
+              <ListItemIcon><CreateIcon/></ListItemIcon>
+              <ListItemText primary="Edit" />
+            </ListItem>
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+            <ListItem button key="settings"  onClick={()=>{history.push("/dashboard/polls/settings")}}>
+              <ListItemIcon><SettingsIcon/></ListItemIcon>
+              <ListItemText primary="Settings" />
             </ListItem>
-          ))}
+            <ListItem button key="logout"  onClick={()=>{history.push("/dashboard/polls/logout")}}>
+              <ListItemIcon><MeetingRoomIcon/></ListItemIcon>
+              <ListItemText primary="Log Out" />
+            </ListItem>
         </List>
       </Drawer>
       <main className={classes.content}>
@@ -180,6 +209,10 @@ export default function Dashbase() {
                     <Stats/>
               </Route>
               <Route path="/dashboard/polls/settings">
+                <Settings/>
+              </Route>
+              <Route path="/dashboard/polls/edit">
+                <Edit/>
               </Route>
       </main>
     </div>

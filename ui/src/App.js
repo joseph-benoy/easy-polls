@@ -14,7 +14,7 @@ function App() {
                 <Route exact path="/signup">
                   <Register/>
                 </Route>
-                <Route path="/dashboard/:page">
+                <Route path="/dashboard/polls/:page">
                     <Dashboard/>
                 </Route>
                 <Route path="/dashboard">
