@@ -116,7 +116,7 @@ const Register = () => {
               <Typography align="center" variant="h5">Easy Polls</Typography>
               </Toolbar>
        </AppBar>
-       <CModal title="Registration completed" description="Now sign in to your account" buttonText="Sign In" open={open}/>
+       <CModal title="Registration completed" description={`Now sign in to your account with username ${email}`} buttonText="Sign In" open={open}/>
 <form className={classes.root} onSubmit={handleSubmit} id="form">
 <Typography align="center" variant="h5" color="primary">Sign In</Typography>
 
