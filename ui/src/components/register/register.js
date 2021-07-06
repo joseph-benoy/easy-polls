@@ -9,8 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-
-
+import './register.scss';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -92,7 +91,9 @@ const Register = ({ handleClose }) => {
               <Typography align="center" variant="h5">Easy Polls</Typography>
               </Toolbar>
        </AppBar>
-<form className={classes.root} onSubmit={handleSubmit}>
+<form className={classes.root} onSubmit={handleSubmit} id="form">
+<Typography align="center" variant="h5" color="primary">Sign In</Typography>
+
       <TextField
         label="First Name"
         variant="outlined"
@@ -150,7 +151,7 @@ const Register = ({ handleClose }) => {
         }
         label="Show password"
       />
-      <div>
+      <div style={{marginTop:"-3vh"}}>
         <Button variant="contained" onClick={handleClose}>
           Cancel
         </Button>
