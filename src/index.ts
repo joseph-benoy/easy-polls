@@ -2,6 +2,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const config = require('./config/config');
 import routes from "./routes";
+const db = require('./config/db');
+
 
 var app = express();
 app.use(express.json());

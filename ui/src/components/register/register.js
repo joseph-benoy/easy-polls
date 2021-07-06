@@ -82,10 +82,10 @@ const Register = () => {
        }
        if(registerFlag){
             axios.post("/user/register",{
-              "First name":firstName,
-              "Last name":lastName,
-              "email":emailValue,
-              "password":passwordValue
+              firstName:firstName,
+              lastName:lastName,
+              email:emailValue,
+              password:passwordValue
             }).then((value)=>{
               history.push("/");
             })
