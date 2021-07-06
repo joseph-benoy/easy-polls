@@ -35,5 +35,32 @@ export default{
               catch(error){
                      next(error.message);
               }
+       },
+       login:async(req:Request,res:Response,next:NextFunction)=>{
+              try{
+                     if(req.body.username===""){
+                            throw new Error(`email can't be empty`);
+                     }
+                     if(req.body.password===""){
+                            throw new Error(`password can't be empty`);
+                     }
+                     const hash = await bcrypt.hash(req.body.password,10);
+                     let user = User.findOne({email:req.body.email},'email password')
+                     .then(async (value:any)=>{
+                            let match = await bcrypt.compare(req.body.password,value.password);
+                            if(match){
+                                   res.json({status:"success"})
+                            }
+                            else{
+                                   next("Invalid password!");
+                            }
+                     })
+                     .catch((error:any)=>{
+                            next("Invalid username");
+                     })
+              } 
+              catch(err){
+                     next(err);
+              }
        }
 }
