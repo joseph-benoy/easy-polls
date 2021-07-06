@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-
+import './login.scss'
 
 
 const useStyles = makeStyles(theme => ({
@@ -78,11 +78,12 @@ const LoginPage = () => {
               <Typography align="center" variant="h5">Easy Polls</Typography>
               </Toolbar>
        </AppBar>
-<form className={classes.root} onSubmit={handleSubmit} style={{
-  boxShadow:"0px 4px 8px 0px rgba(0,0,0,0.3)",
-  borderRadius:"10px",
-  width:"30vw"
-}}>
+        <form id="form" className={classes.root} onSubmit={handleSubmit} style={{
+          boxShadow:"0px 4px 8px 0px rgba(0,0,0,0.3)",
+          borderRadius:"10px",
+          width:"30vw",
+          margin:"0 auto"
+        }}>
       <TextField
         label="Email"
         variant="outlined"
