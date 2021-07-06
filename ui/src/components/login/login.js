@@ -29,11 +29,12 @@ const useStyles = makeStyles(theme => ({
   },
   appbar: {
        alignItems: 'center',
-       fontWeight:"bold"
+       fontWeight:"bold",
+       marginBottom:'10vh'
      }
 }));
 
-const LoginPage = ({ handleClose }) => {
+const LoginPage = () => {
 
   const classes = useStyles();
   // create state variables for each input
@@ -77,7 +78,11 @@ const LoginPage = ({ handleClose }) => {
               <Typography align="center" variant="h5">Easy Polls</Typography>
               </Toolbar>
        </AppBar>
-<form className={classes.root} onSubmit={handleSubmit}>
+<form className={classes.root} onSubmit={handleSubmit} style={{
+  boxShadow:"0px 4px 8px 0px rgba(0,0,0,0.3)",
+  borderRadius:"10px",
+  width:"30vw"
+}}>
       <TextField
         label="Email"
         variant="outlined"
@@ -111,11 +116,8 @@ const LoginPage = ({ handleClose }) => {
         label="Show password"
       />
       <div>
-        <Button variant="contained" onClick={handleClose}>
-          Cancel
-        </Button>
-        <Button type="submit" variant="contained" color="primary">
-          Signup
+        <Button type="submit" variant="contained" color="primary" size="large">
+          Sign In
         </Button>
       </div>
     </form>

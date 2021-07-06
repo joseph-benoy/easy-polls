@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Register from "./components/register/register";
 import LoginPage from "./components/login/login";
 
