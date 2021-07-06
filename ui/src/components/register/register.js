@@ -27,19 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Register = ({ handleClose }) => {
-       const toggleShowPass = ()=>{
-              var main = document.getElementById('passwordMain');
-              var confirm = document.getElementById('passwordConfirm');
-              const flag = document.getElementById('passwordConfirm').getAttribute('type');
-              if(flag==="password"){
-                     main.setAttribute('type','text');
-                     confirm.setAttribute('type','text');
-              }
-              else{
-                     main.setAttribute('type','password');
-                     confirm.setAttribute('type','password');    
-              }
-       }
+
   const classes = useStyles();
   // create state variables for each input
   const [firstName, setFirstName] = useState('');
@@ -47,13 +35,28 @@ const Register = ({ handleClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
+       const [emailError,setEmailError] = useState('');
+       const [passwordError,setPasswordError] = useState('');
+       const [confirmPasswordError,setConfirmPasswordError] = useState('');
   const handleSubmit = e => {
     e.preventDefault();
     console.log(firstName, lastName, email, password);
     handleClose();
   };
-
+  const toggleShowPass = ()=>{
+       var main = document.getElementById('passwordMain');
+       var confirm = document.getElementById('passwordConfirm');
+       const flag = document.getElementById('passwordConfirm').getAttribute('type');
+       if(flag==="password"){
+              main.setAttribute('type','text');
+              confirm.setAttribute('type','text');
+              setEmailError('Invalid email');
+       }
+       else{
+              main.setAttribute('type','password');
+              confirm.setAttribute('type','password');    
+       }
+   }
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <TextField
@@ -77,6 +80,8 @@ const Register = ({ handleClose }) => {
         required
         value={email}
         onChange={e => setEmail(e.target.value)}
+        helperText={emailError}
+        error={emailError!==''?true:false}
       />
       <TextField
         label="Password"
@@ -85,7 +90,9 @@ const Register = ({ handleClose }) => {
         required
         value={password}
         onChange={e => setPassword(e.target.value)}
+        helperText={passwordError}
         id="passwordMain"
+        error={passwordError!==''?true:false}
       />
        <TextField
         label="Confirm password"
@@ -95,6 +102,8 @@ const Register = ({ handleClose }) => {
         value={confirmPassword}
         id="passwordConfirm"
         onChange={e => setConfirmPassword(e.target.value)}
+        helperText={confirmPasswordError}
+        error={confirmPasswordError!==''?true:false}
       />
       <FormControlLabel
         control={
