@@ -1,10 +1,14 @@
+/* eslint-disable no-useless-escape */
+
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
 
 
@@ -24,6 +28,10 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(2),
     },
   },
+  appbar: {
+       alignItems: 'center',
+       fontWeight:"bold"
+     }
 }));
 
 const Register = ({ handleClose }) => {
@@ -77,7 +85,14 @@ const Register = ({ handleClose }) => {
        }
    }
   return (
-    <form className={classes.root} onSubmit={handleSubmit}>
+       <>
+
+       <AppBar className={classes.appbar} position="sticky">
+              <Toolbar>
+              <Typography align="center" variant="h5">Easy Polls</Typography>
+              </Toolbar>
+       </AppBar>
+<form className={classes.root} onSubmit={handleSubmit}>
       <TextField
         label="First Name"
         variant="outlined"
@@ -144,6 +159,7 @@ const Register = ({ handleClose }) => {
         </Button>
       </div>
     </form>
+    </>
   );
 };
 
