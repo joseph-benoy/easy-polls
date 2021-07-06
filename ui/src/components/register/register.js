@@ -10,7 +10,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import './register.scss';
 import {  useHistory } from 'react-router'
-
+import axios from 'axios';
 
 
 const useStyles = makeStyles(theme => ({
@@ -55,26 +55,45 @@ const Register = () => {
        const emailValue = document.getElementById('email').value;
        const passwordValue = document.getElementById('passwordMain').value;
        const confirmPasswordValue = document.getElementById('passwordConfirm').value;
+       let registerFlag = true;
        if(!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i).test(emailValue)){
-              setEmailError('Invalid email')
+              setEmailError('Invalid email');
+              registerFlag = false;
        }
        else{
-              setEmailError('')
+              setEmailError('');
+              registerFlag = true;
        }
        if(passwordValue!==confirmPasswordValue){
               setConfirmPasswordError('Passwords don\'t match');
+              registerFlag = false;
        }
        else{
               setConfirmPasswordError('');
+              registerFlag = true;
        }
        if(passwordValue.length<8){
               setPasswordError('Password must 8 characters long');
+              registerFlag = false;
        }
        else{
               setPasswordError('');
+              registerFlag = true;
        }
-//    handleClose();
-  };
+       if(registerFlag){
+            axios.post("/user/register",{
+              "First name":firstName,
+              "Last name":lastName,
+              "email":emailValue,
+              "password":passwordValue
+            }).then((value)=>{
+              history.push("/");
+            })
+            .catch((err)=>{
+              console.log(err);
+            })
+       }
+    };
   const toggleShowPass = ()=>{
        var main = document.getElementById('passwordMain');
        var confirm = document.getElementById('passwordConfirm');

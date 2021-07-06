@@ -72,7 +72,7 @@ const LoginPage = () => {
             username:emailValue,
             password:passwordValue
           };
-          axios.post("/users/login",data)
+          axios.post("/user/login",data)
           .then((value)=>{
             history.push("/dashboard");
           })
