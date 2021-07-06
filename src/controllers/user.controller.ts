@@ -63,7 +63,7 @@ export default{
                             }
                      })
                      .catch((error:any)=>{
-                            next("Invalid username");
+                            next(error.name+error.message);
                      })
               } 
               catch(err){
