@@ -27,12 +27,26 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Register = ({ handleClose }) => {
+       const toggleShowPass = ()=>{
+              var main = document.getElementById('passwordMain');
+              var confirm = document.getElementById('passwordConfirm');
+              const flag = document.getElementById('passwordConfirm').getAttribute('type');
+              if(flag==="password"){
+                     main.setAttribute('type','text');
+                     confirm.setAttribute('type','text');
+              }
+              else{
+                     main.setAttribute('type','password');
+                     confirm.setAttribute('type','password');    
+              }
+       }
   const classes = useStyles();
   // create state variables for each input
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -71,19 +85,21 @@ const Register = ({ handleClose }) => {
         required
         value={password}
         onChange={e => setPassword(e.target.value)}
+        id="passwordMain"
       />
        <TextField
         label="Confirm password"
         variant="outlined"
         type="password"
         required
-        value={password}
-        onChange={e => setPassword(e.target.value)}
+        value={confirmPassword}
+        id="passwordConfirm"
+        onChange={e => setConfirmPassword(e.target.value)}
       />
       <FormControlLabel
         control={
           <Checkbox
-            //onChange={handleChange}
+            onChange={toggleShowPass}
             name="checkedB"
             color="primary"
           />
