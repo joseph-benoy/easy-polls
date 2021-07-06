@@ -118,4 +118,4 @@ const Register = ({ handleClose }) => {
   );
 };
 
-export default Register;
+export default React.memo((Register));
