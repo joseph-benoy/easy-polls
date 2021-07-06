@@ -18,6 +18,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
+
+import {Route} from 'react-router-dom';
+import CreatePoll from '../createpoll/createpoll';
+import Home from '../home/home';
+import Stats from '../stats/stats';
+
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -160,6 +167,17 @@ export default function Dashbase() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
+            <Route path="/dashboard/polls/home">
+                    <Home/>
+              </Route>
+              <Route path="/dashboard/polls/create">
+                    <CreatePoll/>
+              </Route>
+              <Route path="/dashboard/polls/stats">
+                    <Stats/>
+              </Route>
+              <Route path="/dashboard/polls/settings">
+              </Route>
       </main>
     </div>
   );
