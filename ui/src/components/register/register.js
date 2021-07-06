@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import './register.scss';
 import {  useHistory } from 'react-router'
 import axios from 'axios';
-
+import CModal from '../modal/modal';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,6 +50,7 @@ const Register = () => {
        const [emailError,setEmailError] = useState('');
        const [passwordError,setPasswordError] = useState('');
        const [confirmPasswordError,setConfirmPasswordError] = useState('');
+       const [open,setOpen] = useState(false);
   const handleSubmit = e => {
     e.preventDefault();
        const emailValue = document.getElementById('email').value;
@@ -87,7 +88,7 @@ const Register = () => {
               email:emailValue,
               password:passwordValue
             }).then((value)=>{
-              history.push("/");
+              setOpen(true);
             })
             .catch((err)=>{
               console.log(err);
@@ -101,6 +102,7 @@ const Register = () => {
        if(flag==="password"){
               main.setAttribute('type','text');
               confirm.setAttribute('type','text');
+              setOpen(true);
        }
        else{
               main.setAttribute('type','password');
@@ -109,12 +111,12 @@ const Register = () => {
    }
   return (
        <>
-
        <AppBar className={classes.appbar} position="sticky">
               <Toolbar>
               <Typography align="center" variant="h5">Easy Polls</Typography>
               </Toolbar>
        </AppBar>
+       <CModal title="Registration completed" description="Now sign in to your account" buttonText="Sign In" open={open}/>
 <form className={classes.root} onSubmit={handleSubmit} id="form">
 <Typography align="center" variant="h5" color="primary">Sign In</Typography>
 
