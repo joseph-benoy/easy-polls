@@ -1,25 +1,17 @@
-import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
-import Register from "./components/register/register";
-import LoginPage from "./components/login/login";
+// routes
+import Router from './routes';
+// theme
+import ThemeConfig from './theme';
+// components
+import ScrollToTop from './components/ScrollToTop';
 
+// ----------------------------------------------------------------------
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-          <Router>
-            <Switch>
-                <Route exact path="/">
-                  <LoginPage/>
-                </Route>
-                <Route exact path="/signup">
-                  <Register/>
-                </Route>
-                <Route path="/dashboard/:page">
-                </Route>
-            </Switch>
-          </Router>
-    </div>
+    <ThemeConfig>
+      <ScrollToTop />
+      <Router />
+    </ThemeConfig>
   );
 }
-
-export default App;
