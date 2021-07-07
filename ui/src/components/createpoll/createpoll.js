@@ -19,7 +19,8 @@ const CreatePoll = ()=>{
                      if(i===5||i!==count){
                             inputs.push(
                                    <>
-                                   <TextField key={i} style={{width:"50vw"}} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
+                                   <TextField fullWidth key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
+                                   <br/>
                                    <br/>
                                    </>
                             );
@@ -27,7 +28,7 @@ const CreatePoll = ()=>{
                      else{
                             inputs.push(
                                    <>
-                                          <TextField style={{width:"50vw"}} key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
+                                          <TextField fullWidth  key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
                                           <IconButton onClick={()=>{setOptionCount(optionCount+1)}}  variant="contained" color="primary">
                                                  <AddCircleIcon/>
                                           </IconButton>
@@ -68,7 +69,7 @@ const CreatePoll = ()=>{
                             <Grid item xs={12}>
                                    <Typography variant="body1">Add options</Typography>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} justify="center">
                                    {getOptions(optionCount)}
                             </Grid>
                             <Grid item container xs={12} justify="center"> 
