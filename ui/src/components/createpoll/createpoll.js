@@ -53,7 +53,7 @@ const CreatePoll = ()=>{
        }
        return (
               <>
-                     <Preview title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
+                     <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
                      <Grid container spacing={2}>
                             <Grid item xs={12}>
                                    <Typography variant="h5">Create poll</Typography>

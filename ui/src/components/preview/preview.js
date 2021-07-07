@@ -5,7 +5,11 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { Typography } from '@material-ui/core';
-
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 
 
    
@@ -33,9 +37,23 @@ import { Typography } from '@material-ui/core';
 
 
 
-const Preview = ({title,description,buttonText,openFlag,previewClose})=>{
+const Preview = ({title,description,options,buttonText,openFlag,previewClose})=>{
        const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
+    const getOptions = (options)=>{
+                     let items = [];
+                     for(let i in options){
+                            items.push(
+                                   <ListItem>
+                                          <ListItemIcon>
+                                                 <RadioButtonUncheckedIcon />
+                                          </ListItemIcon>
+                                          <ListItemText primary={options[i]}/>
+                                   </ListItem>
+                            );
+                     }
+                     return items;
+              }
        return (
               <Modal
                      open = {openFlag}
@@ -45,7 +63,12 @@ const Preview = ({title,description,buttonText,openFlag,previewClose})=>{
                      <div style={modalStyle} className={classes.paper}>
                             <Typography variant="h4">{title}</Typography>
                             <Typography  variant="body1">{description}</Typography>
-                            <Button variant="contained" color="secondary" onClick={previewClose}>Close</Button>
+                            <List>
+                                   {
+                                          getOptions(options)
+                                   }
+                            </List>
+                            <Button variant="contained" color="secondary" onClick={previewClose}>{buttonText}</Button>
                      </div>
               </Modal>
        );
