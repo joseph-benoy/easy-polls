@@ -26,7 +26,6 @@ import {Route} from 'react-router-dom';
 import CreatePoll from '../createpoll/createpoll';
 import Home from '../home/home';
 import Stats from '../stats/stats';
-import { Link, useParams} from 'react-router-dom';
 import './dashbase.scss';
 import Settings from '../settings/settings';
 import Edit from '../edit/edit';
