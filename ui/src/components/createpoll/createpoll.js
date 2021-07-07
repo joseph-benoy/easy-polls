@@ -5,11 +5,14 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import {useHistory} from 'react-router';
 
 
 const CreatePoll = ()=>{
        const [optionCount,setOptionCount] = useState(2);
        const [options,setOptions] = useState({});
+       var history = useHistory();
        const getOptions = (count)=>{
               let inputs = [];
               for(let i=1;i<=count&&i<=5;i++){
@@ -41,7 +44,6 @@ const CreatePoll = ()=>{
                      ...options,
                      [event.target.name]:value
               });
-              console.log(options);
        }
        return (
               <>
@@ -69,16 +71,12 @@ const CreatePoll = ()=>{
                             <Grid item xs={12}>
                                    {getOptions(optionCount)}
                             </Grid>
-                            <Grid item container xs={12}> 
-                                   <Grid item xs={4}>
-                                          <Button variant="contained" color="secondary">Cancel</Button>
-                                   </Grid>
-                                   <Grid item xs={4}>
-                                          <Button variant="contained">Preview</Button>
-                                   </Grid>
-                                   <Grid item xs={4}>
-                                          <Button variant="contained" color="primary">Launch</Button>
-                                   </Grid>
+                            <Grid item container xs={12} justify="center"> 
+                                   <ButtonGroup variant="contained" color="secondary" aria-label="contained primary button group">
+                                          <Button onClick={()=>{history.push("/dashboard/polls/home")}}>Cancel</Button>
+                                          <Button>Preview</Button>
+                                          <Button>Launch</Button>
+                                   </ButtonGroup>
                             </Grid>
                      </Grid>
               </>
