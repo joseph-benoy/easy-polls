@@ -7,12 +7,15 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {useHistory} from 'react-router';
-
+import Preview from '../preview/preview';
 
 const CreatePoll = ()=>{
        const [optionCount,setOptionCount] = useState(2);
        const [options,setOptions] = useState({});
+       const [title,setTitle] = useState('');
+       const [description,setDescription] = useState('');
        var history = useHistory();
+       const [openFlag,setOpenFlag] = useState(false);
        const getOptions = (count)=>{
               let inputs = [];
               for(let i=1;i<=count&&i<=5;i++){
@@ -29,9 +32,11 @@ const CreatePoll = ()=>{
                             inputs.push(
                                    <>
                                           <TextField fullWidth  key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
-                                          <IconButton onClick={()=>{setOptionCount(optionCount+1)}}  variant="contained" color="primary">
-                                                 <AddCircleIcon/>
-                                          </IconButton>
+                                                 <Grid item xs={12} container justify="flex-end">
+                                                        <IconButton onClick={()=>{setOptionCount(optionCount+1)}}  variant="contained" color="primary">
+                                                               <AddCircleIcon fontSize="large"/>
+                                                        </IconButton>
+                                                 </Grid>
                                           <br/>
                                    </>
                             );   
@@ -48,15 +53,17 @@ const CreatePoll = ()=>{
        }
        return (
               <>
+                     <Preview title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
                      <Grid container spacing={2}>
                             <Grid item xs={12}>
                                    <Typography variant="h5">Create poll</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                   <TextField placeholder="Poll's title" fullWidth id="title" type="text" variant="outlined" label="Title"/>
+                                   <TextField onChange={(e)=>{setTitle(e.target.value)}} placeholder="Poll's title" fullWidth id="title" type="text" variant="outlined" label="Title"/>
                             </Grid>
                             <Grid item xs={12}>
                                    <TextField
+                                          onChange={(e)=>{setDescription(e.target.value)}}
                                           fullWidth
                                           id="description"
                                           label="Description"
@@ -69,13 +76,13 @@ const CreatePoll = ()=>{
                             <Grid item xs={12}>
                                    <Typography variant="body1">Add options</Typography>
                             </Grid>
-                            <Grid item xs={12} justify="center">
+                            <Grid item xs={12}>
                                    {getOptions(optionCount)}
                             </Grid>
                             <Grid item container xs={12} justify="center"> 
                                    <ButtonGroup variant="contained" color="secondary" aria-label="contained primary button group">
                                           <Button onClick={()=>{history.push("/dashboard/polls/home")}}>Cancel</Button>
-                                          <Button>Preview</Button>
+                                          <Button onClick={()=>{setOpenFlag(true)}}>Preview</Button>
                                           <Button>Launch</Button>
                                    </ButtonGroup>
                             </Grid>
