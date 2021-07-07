@@ -2,23 +2,40 @@ import React,{useState} from 'react';
 import Typography from '@material-ui/core/Typography';
 import {Grid} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-
+/*
+                                   <IconButton onClick={()=>{setOptionCount(optionCount+1)}}  variant="contained" color="primary">
+                                          <AddCircleIcon/>
+                                   </IconButton>
+*/
 
 const CreatePoll = ()=>{
        const [optionCount,setOptionCount] = useState(2);
        const [options,setOptions] = useState({});
        const getOptions = (count)=>{
               let inputs = [];
-              for(let i=1;i<=count&&i<=10;i++){
-                     inputs.push(
-                            <>
-                            <TextField key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
-                            <br/>
-                            </>
-                     );
+              for(let i=1;i<=count&&i<=5;i++){
+                     if(i===5||i!==count){
+                            inputs.push(
+                                   <>
+                                   <TextField key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
+                                   <br/>
+                                   </>
+                            );
+                     }
+                     else{
+                            inputs.push(
+                                   <>
+                                          <TextField key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
+                                          <IconButton onClick={()=>{setOptionCount(optionCount+1)}}  variant="contained" color="primary">
+                                                 <AddCircleIcon/>
+                                          </IconButton>
+                                          <br/>
+                                   </>
+                            );   
+                     }
               }
               return inputs;
        }
@@ -32,7 +49,7 @@ const CreatePoll = ()=>{
        }
        return (
               <>
-                     <Grid container>
+                     <Grid container spacing={2}>
                             <Grid item xs={12}>
                                    <Typography variant="h5">Create poll</Typography>
                             </Grid>
@@ -52,9 +69,6 @@ const CreatePoll = ()=>{
                             </Grid>
                             <Grid item xs={12}>
                                    <Typography variant="body1">Add options</Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                   <Button onClick={()=>{setOptionCount(optionCount+1)}} startIcon={<AddCircleIcon />} variant="contained" color="primary">Add</Button>
                             </Grid>
                             <Grid item xs={12}>
                                    {getOptions(optionCount)}
