@@ -10,6 +10,9 @@ import {useHistory} from 'react-router';
 import Preview from '../preview/preview';
 
 const CreatePoll = ()=>{
+       const [titleError,setTitleError] = useState('');
+       const [descriptionError,setDescriptionError] = useState('');
+       const [optionsError,setOptionsError] = useState('');
        const [optionCount,setOptionCount] = useState(2);
        const [options,setOptions] = useState({});
        const [title,setTitle] = useState('');
@@ -22,7 +25,7 @@ const CreatePoll = ()=>{
                      if(i===5||i!==count){
                             inputs.push(
                                    <>
-                                   <TextField fullWidth key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
+                                   <TextField  error={optionsError===''?false:true} helperText={optionsError} fullWidth key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
                                    <br/>
                                    <br/>
                                    </>
@@ -31,7 +34,7 @@ const CreatePoll = ()=>{
                      else{
                             inputs.push(
                                    <>
-                                          <TextField fullWidth  key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
+                                          <TextField error={optionsError===''?false:true} helperText={optionsError} fullWidth  key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
                                                  <Grid item xs={12} container justify="flex-end">
                                                         <IconButton onClick={()=>{setOptionCount(optionCount+1)}}  variant="contained" color="primary">
                                                                <AddCircleIcon fontSize="large"/>
@@ -39,7 +42,7 @@ const CreatePoll = ()=>{
                                                  </Grid>
                                           <br/>
                                    </>
-                            );   
+                            );
                      }
               }
               return inputs;
@@ -51,6 +54,28 @@ const CreatePoll = ()=>{
                      [event.target.name]:value
               });
        }
+       const  checkFields= ()=>{
+              let flag = true;
+              if(title===""){
+                     setTitleError("Title can't be empty!");
+                     flag = false;
+              }
+              if(description===""){
+                     setDescriptionError("Description can't be empty1");
+                     flag = false;
+              }
+              if(Object.keys(options).length!==optionCount){
+                     setOptionsError(`Options can't be empty!`);
+                     flag = false;
+              }
+              return flag;
+       }
+       const previewOpen = ()=>{
+              if(checkFields()){
+                     setOpenFlag(true);
+              }
+       }
+
        return (
               <>
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
@@ -59,10 +84,12 @@ const CreatePoll = ()=>{
                                    <Typography variant="h5">Create poll</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                   <TextField onChange={(e)=>{setTitle(e.target.value)}} placeholder="Poll's title" fullWidth id="title" type="text" variant="outlined" label="Title"/>
+                                   <TextField helperText={titleError} error={titleError===''?false:true} onChange={(e)=>{setTitle(e.target.value)}} placeholder="Poll's title" fullWidth id="title" type="text" variant="outlined" label="Title"/>
                             </Grid>
                             <Grid item xs={12}>
                                    <TextField
+                                          helperText={descriptionError}
+                                          error={descriptionError===''?false:true}
                                           onChange={(e)=>{setDescription(e.target.value)}}
                                           fullWidth
                                           id="description"
@@ -79,10 +106,10 @@ const CreatePoll = ()=>{
                             <Grid item xs={12}>
                                    {getOptions(optionCount)}
                             </Grid>
-                            <Grid item container xs={12} justify="center"> 
+                            <Grid item container xs={12} justify="center">
                                    <ButtonGroup variant="contained" color="secondary" aria-label="contained primary button group">
                                           <Button onClick={()=>{history.push("/dashboard/polls/home")}}>Cancel</Button>
-                                          <Button onClick={()=>{setOpenFlag(true)}}>Preview</Button>
+                                          <Button onClick={previewOpen}>Preview</Button>
                                           <Button>Launch</Button>
                                    </ButtonGroup>
                             </Grid>
