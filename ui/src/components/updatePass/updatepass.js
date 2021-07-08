@@ -38,6 +38,23 @@ const UpdatePass = ({title,buttonText,openFlag,previewClose})=>{
     const [currentPass,setCurrentPass] = React.useState('');
     const [newPass,setNewPass] = React.useState('');
     const [newPassRepeat,setNewPassRepeat] = React.useState('');
+    const [currentPassError,setCurrentPassError] = React.useState('');
+    const [newPassError,setNewPassError] = React.useState('');
+    const [newPassRepeatError,setNewPassRepeatError] = React.useState('');
+    const updateHandler = (cb)=>{
+       if(currentPass===''){
+              setCurrentPassError("Current password required!");
+       }
+       if(newPass===''||!(newPass.length>=8)){
+              setNewPassError("Invalid new password!");
+       }
+       if(newPassRepeat!==newPass){
+              setNewPassRepeatError('Passwords doesn\'t match!');
+       }
+       else{
+              cb();
+       }
+    }
        return (
               <Modal
                      open = {openFlag}
@@ -48,16 +65,16 @@ const UpdatePass = ({title,buttonText,openFlag,previewClose})=>{
                             <Typography variant="h4">{title}</Typography><br/>
                             <Grid container spacing={2}> 
                                    <Grid item lg={4}>
-                                          <TextField onChange={(e)=>{setCurrentPass(e.target.value)}} fullWidth variant="outlined" type="password" name="currentPass" label="current password" /><br/><br/>
+                                          <TextField error={currentPassError===''?false:true} helperText={currentPassError} onChange={(e)=>{setCurrentPass(e.target.value)}} fullWidth variant="outlined" type="password" name="currentPass" label="current password" /><br/><br/>
                                    </Grid>
                                    <Grid item lg={4}>
-                                          <TextField  onChange={(e)=>{setNewPass(e.target.value)}} fullWidth variant="outlined" type="password" name="newPass" label="new password" /><br/><br/>
+                                          <TextField   error={newPassError===''?false:true}  helperText={newPassError}  onChange={(e)=>{setNewPass(e.target.value)}} fullWidth variant="outlined" type="password" name="newPass" label="new password" /><br/><br/>
                                    </Grid>
                                    <Grid item lg={4}>
-                                          <TextField onChange={(e)=>{setNewPassRepeat(e.target.value)}}  fullWidth variant="outlined" type="password" name="newPassRepeat" label="repeat new password" /><br/><br/>
+                                          <TextField  error={newPassRepeatError===''?false:true} helperText={newPassRepeatError} onChange={(e)=>{setNewPassRepeat(e.target.value)}}  fullWidth variant="outlined" type="password" name="newPassRepeat" label="repeat new password" /><br/><br/>
                                    </Grid>
                                    <Grid container justify="flex-end">
-                                          <Button variant="contained" color="secondary" onClick={previewClose}>{buttonText}</Button>
+                                          <Button variant="contained" color="secondary" onClick={updateHandler(previewClose)}>{buttonText}</Button>
                                    </Grid>
                             </Grid>
                      </div>
