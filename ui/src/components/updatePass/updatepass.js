@@ -7,7 +7,7 @@ import { TextField } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import axios from 'axios';
 
    
    function getModalStyle() {
@@ -58,6 +58,7 @@ const UpdatePass = ({title,buttonText,openFlag,previewClose})=>{
               flag=false;
        }
        if(flag){
+              axios.patch()
               cb();
        }
     }

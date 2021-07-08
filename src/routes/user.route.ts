@@ -7,6 +7,6 @@ router.post('/register',userController.register);
 router.post('/login',userController.login);
 router.get('/getuserdata',jwt.validateToken,userController.getUserData);
 router.patch('/updategeneral',jwt.validateToken,userController.updateGeneral);
-
+router.patch('/updatepassword',jwt.validateToken,userController.updatePassword);
 export default router;
 

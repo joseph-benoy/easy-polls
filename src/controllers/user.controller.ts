@@ -109,5 +109,33 @@ export default{
               catch(err){   
                      next(err);
               }
+       },
+       updatePassword:async(req:Request,res:Response,next:NextFunction)=>{
+              try{
+                     const hash = await bcrypt.hash(req.body.password,10);
+                     // @ts-ignore
+                     User.findOne({_id:req.id},"password")
+                     .then(async (value:any)=>{
+                            let match = await bcrypt.compare(req.body.currentPassword,value.password);
+                            if(match){
+                                   const newHash = await bcrypt.hash(req.body.newPassword,10);
+                                   // @ts-ignore
+                                   User.updateOne({_id:req.id},{$set:{password:newHash}}).then((value:any)=>{
+                                          res.json(value);
+                                   }).catch((err:any)=>{
+                                          next(err);
+                                   })
+                            }
+                            else{
+                                   next("Incorrect password");
+                            }
+                     })
+                     .catch((err:any)=>{
+                            next(err)
+                     })
+              }
+              catch(err){
+                     next(err);
+              }
        }
 }
