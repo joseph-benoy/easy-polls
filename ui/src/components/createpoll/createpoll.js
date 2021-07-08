@@ -107,7 +107,7 @@ const CreatePoll = ()=>{
                                    />
                             </Grid>
                             <Grid item xs={12}>
-                                   <TextField helperText={dateError} error={dateError===''?false:true} onChange={(e)=>{setDate(e.target.value)}} placeholder="Expiry date" fullWidth id="expiry" type="date" variant="outlined"/>
+                                   <TextField helperText={dateError} error={dateError===''?false:true} onChange={(e)=>{setDate(e.target.value)}} placeholder="Expiry date" fullWidth id="expiry" type="datetime-local" variant="outlined"/>
                             </Grid>
                             <Grid item xs={12}>
                                    <Typography variant="body1">Add options</Typography>
