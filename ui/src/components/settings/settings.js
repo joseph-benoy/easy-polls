@@ -27,6 +27,7 @@ export default function Settings() {
   const [email,setEmail] = React.useState('');
   const [firstName,setFirstName] = React.useState('');
   const [lastName,setLastName] = React.useState('');
+  const [saveFlag,setSaveFlag] = React.useState(true);
   React.useEffect(()=>{
     axios.get('/user/getuserdata').then((res)=>{
       setEmail(res.data.email);
@@ -63,8 +64,8 @@ export default function Settings() {
           <Typography className={classes.heading}>General</Typography>
         </AccordionSummary>
         <AccordionDetails>
-               <Grid container spacing={2}>
-                     <Grid item xs={12}>
+               <Grid container spacing={2} onChange={()=>{setSaveFlag(false)}}>
+                     <Grid item xs={12} >
                             <TextField fullWidth value={firstName} onChange={(e)=>{setFirstName(e.target.value)}} id="firstName" name="firstName" label="First name" />
                      </Grid>
                      <Grid item xs={12}>
@@ -74,7 +75,7 @@ export default function Settings() {
                             <TextField fullWidth value={email} onChange={(e)=>{setEmail(e.target.value)}} id="email" name="email" label="Email" />
                      </Grid>
                      <Grid item xs={12} style={{marginTop:"2vh"}} container justify="flex-end">
-                            <Button color="primary" variant="contained" onClick={updateGeneralHandler}>Save</Button>
+                            <Button color="primary" disabled={saveFlag} variant="contained" onClick={updateGeneralHandler}>Save</Button>
                      </Grid>
                </Grid>
         </AccordionDetails>
@@ -90,7 +91,7 @@ export default function Settings() {
         <AccordionDetails>
               <Grid container>
                      <Grid >
-                            <Button variant="contained" onClick={()=>{setOpenFlag(true)}}>Change password</Button>
+                            <Button  variant="contained" onClick={()=>{setOpenFlag(true)}}>Change password</Button>
                      </Grid>
               </Grid>
         </AccordionDetails>
