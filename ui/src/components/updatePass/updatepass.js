@@ -5,6 +5,8 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
    
@@ -42,18 +44,31 @@ const UpdatePass = ({title,buttonText,openFlag,previewClose})=>{
     const [newPassError,setNewPassError] = React.useState('');
     const [newPassRepeatError,setNewPassRepeatError] = React.useState('');
     const updateHandler = (cb)=>{
+           let flag=true;
        if(currentPass===''){
               setCurrentPassError("Current password required!");
+              flag=false;
        }
        if(newPass===''||!(newPass.length>=8)){
               setNewPassError("Invalid new password!");
+              flag=false;
        }
        if(newPassRepeat!==newPass){
               setNewPassRepeatError('Passwords doesn\'t match!');
+              flag=false;
        }
-       else{
+       if(flag){
               cb();
        }
+    }
+    const togglePassword = ()=>{
+           var old = document.getElementById('old');
+           var newPass = document.getElementById('newPass');
+           var newPassRe = document.getElementById('newPassRe');
+           var type = old.getAttribute('type')==="text"?"password":"text";
+           old.setAttribute('type',type);
+           newPass.setAttribute('type',type);
+           newPassRe.setAttribute('type',type);
     }
        return (
               <Modal
@@ -65,16 +80,22 @@ const UpdatePass = ({title,buttonText,openFlag,previewClose})=>{
                             <Typography variant="h4">{title}</Typography><br/>
                             <Grid container spacing={2}> 
                                    <Grid item lg={4}>
-                                          <TextField error={currentPassError===''?false:true} helperText={currentPassError} onChange={(e)=>{setCurrentPass(e.target.value)}} fullWidth variant="outlined" type="password" name="currentPass" label="current password" /><br/><br/>
+                                          <TextField id="old" error={currentPassError===''?false:true} helperText={currentPassError} onChange={(e)=>{setCurrentPass(e.target.value)}} fullWidth variant="outlined" type="password" name="currentPass" label="current password" /><br/><br/>
                                    </Grid>
                                    <Grid item lg={4}>
-                                          <TextField   error={newPassError===''?false:true}  helperText={newPassError}  onChange={(e)=>{setNewPass(e.target.value)}} fullWidth variant="outlined" type="password" name="newPass" label="new password" /><br/><br/>
+                                          <TextField id="newPass"  error={newPassError===''?false:true}  helperText={newPassError}  onChange={(e)=>{setNewPass(e.target.value)}} fullWidth variant="outlined" type="password" name="newPass" label="new password" /><br/><br/>
                                    </Grid>
                                    <Grid item lg={4}>
-                                          <TextField  error={newPassRepeatError===''?false:true} helperText={newPassRepeatError} onChange={(e)=>{setNewPassRepeat(e.target.value)}}  fullWidth variant="outlined" type="password" name="newPassRepeat" label="repeat new password" /><br/><br/>
+                                          <TextField  id="newPassRe" error={newPassRepeatError===''?false:true} helperText={newPassRepeatError} onChange={(e)=>{setNewPassRepeat(e.target.value)}}  fullWidth variant="outlined" type="password" name="newPassRepeat" label="repeat new password" /><br/><br/>
+                                   </Grid>
+                                   <Grid item xs={12}>
+                                          <FormControlLabel
+                                                 control={<Checkbox  onChange={togglePassword} name="checkedA" />}
+                                                 label="Show password"
+                                          />
                                    </Grid>
                                    <Grid container justify="flex-end">
-                                          <Button variant="contained" color="secondary" onClick={updateHandler(previewClose)}>{buttonText}</Button>
+                                          <Button variant="contained" color="secondary" onClick={()=>{updateHandler(previewClose)}}>{buttonText}</Button>
                                    </Grid>
                             </Grid>
                      </div>
