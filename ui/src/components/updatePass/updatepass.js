@@ -58,8 +58,15 @@ const UpdatePass = ({title,buttonText,openFlag,previewClose})=>{
               flag=false;
        }
        if(flag){
-              axios.patch()
-              cb();
+              axios.patch("/user/updatepassword",{
+                     currentPassword:currentPass,
+                     newPassword:newPass
+              }).then((value)=>{
+                     cb();
+              })
+              .catch((err)=>{
+                     setNewPassError(err.data);
+              })
        }
     }
     const togglePassword = ()=>{

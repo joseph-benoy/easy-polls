@@ -46,7 +46,6 @@ export default{
                      if(req.body.password===""){
                             throw new Error(`password can't be empty`);
                      }
-                     const hash = await bcrypt.hash(req.body.password,10);
                      let user = User.findOne({email:req.body.email},'email password')
                      .then(async (value:any)=>{
                             let match = await bcrypt.compare(req.body.password,value.password);
@@ -112,7 +111,6 @@ export default{
        },
        updatePassword:async(req:Request,res:Response,next:NextFunction)=>{
               try{
-                     const hash = await bcrypt.hash(req.body.currentPassword,10);
                      // @ts-ignore
                      User.findOne({_id:req.id},"password")
                      .then(async (value:any)=>{
@@ -123,7 +121,7 @@ export default{
                                    User.updateOne({_id:req.id},{$set:{password:newHash}}).then((value:any)=>{
                                           res.json(value);
                                    }).catch((err:any)=>{
-                                          next(err);
+                                          next(err.message);
                                    })
                             }
                             else{
@@ -131,7 +129,7 @@ export default{
                             }
                      })
                      .catch((err:any)=>{
-                            next(err)
+                            next(err.message);
                      })
               }
               catch(err){
