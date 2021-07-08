@@ -37,6 +37,18 @@ export default function Settings() {
       console.log(err.data);
     })
   },[]);
+  const updateGeneralHandler = ()=>{
+    axios.patch("/user/updategeneral",{
+      firstName:firstName,
+      lastName:lastName,
+      email:email
+    })
+    .then((value)=>{
+    })
+    .catch((err)=>{
+      console.log(err.data);
+    })
+  }
   return (
          <>
          <Typography variant="h5" style={{marginBottom:"2vh"}}>Settings</Typography>
@@ -53,16 +65,16 @@ export default function Settings() {
         <AccordionDetails>
                <Grid container spacing={2}>
                      <Grid item xs={12}>
-                            <TextField fullWidth value={firstName} id="firstName" name="firstName" label="First name" />
+                            <TextField fullWidth value={firstName} onChange={(e)=>{setFirstName(e.target.value)}} id="firstName" name="firstName" label="First name" />
                      </Grid>
                      <Grid item xs={12}>
-                            <TextField fullWidth value={lastName} id="lastName" name="lastName" label="Last name" />
+                            <TextField fullWidth value={lastName} onChange={(e)=>{setLastName(e.target.value)}} id="lastName" name="lastName" label="Last name" />
                      </Grid>
                      <Grid item xs={12}>
-                            <TextField fullWidth value={email} id="email" name="email" label="Email" />
+                            <TextField fullWidth value={email} onChange={(e)=>{setEmail(e.target.value)}} id="email" name="email" label="Email" />
                      </Grid>
                      <Grid item xs={12} style={{marginTop:"2vh"}} container justify="flex-end">
-                            <Button color="primary" variant="contained">Save</Button>
+                            <Button color="primary" variant="contained" onClick={updateGeneralHandler}>Save</Button>
                      </Grid>
                </Grid>
         </AccordionDetails>
