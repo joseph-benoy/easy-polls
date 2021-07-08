@@ -10,6 +10,9 @@ import {Grid} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import Updatepass from '../updatePass/updatepass';
 import axios from 'axios';
+import { useHistory } from 'react-router';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +31,8 @@ export default function Settings() {
   const [firstName,setFirstName] = React.useState('');
   const [lastName,setLastName] = React.useState('');
   const [saveFlag,setSaveFlag] = React.useState(true);
+  const [emailChange,setEmailChange] = React.useState(false);
+  const history = useHistory();
   React.useEffect(()=>{
     axios.get('/user/getuserdata').then((res)=>{
       setEmail(res.data.email);
@@ -45,6 +50,9 @@ export default function Settings() {
       email:email
     })
     .then((value)=>{
+      if(emailChange){
+        history.push('/');
+      }
     })
     .catch((err)=>{
       console.log(err.data);
@@ -72,7 +80,7 @@ export default function Settings() {
                             <TextField fullWidth value={lastName} onChange={(e)=>{setLastName(e.target.value)}} id="lastName" name="lastName" label="Last name" />
                      </Grid>
                      <Grid item xs={12}>
-                            <TextField fullWidth value={email} onChange={(e)=>{setEmail(e.target.value)}} id="email" name="email" label="Email" />
+                            <TextField fullWidth  value={email} onChange={(e)=>{setEmail(e.target.value);setEmailChange(true)}} id="email" name="email" label="Email" />
                      </Grid>
                      <Grid item xs={12} style={{marginTop:"2vh"}} container justify="flex-end">
                             <Button color="primary" disabled={saveFlag} variant="contained" onClick={updateGeneralHandler}>Save</Button>
