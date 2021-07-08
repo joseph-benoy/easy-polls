@@ -69,5 +69,18 @@ export default{
               catch(err){
                      next(err);
               }
+       },
+       getUserData:async(req:Request,res:Response,next:NextFunction)=>{
+              try{
+                     // @ts-ignore
+                     let user = User.findOne({_id:req.id},'firstName lastName email').then((value:Object)=>{
+                            res.json(value);
+                     }).catch((error:any)=>{
+                            next(error.name+error.message);
+                     });
+              }
+              catch(err){
+                     next(err);
+              }
        }
 }
