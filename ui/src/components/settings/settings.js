@@ -79,10 +79,11 @@ export default function Settings() {
           <Typography className={classes.heading}>Revoke</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+          <Grid container>
+                     <Grid >
+                            <Button variant="contained" color="secondary" onClick={()=>{setOpenFlag(true)}}>Revoke all polls</Button>
+                     </Grid>
+              </Grid>
         </AccordionDetails>
       </Accordion>
     </div>
