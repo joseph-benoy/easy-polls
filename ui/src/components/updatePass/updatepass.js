@@ -8,7 +8,7 @@ import { Grid } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import axios from 'axios';
-
+import {useHistory} from 'react-router';
    
    function getModalStyle() {
        return {
@@ -35,6 +35,7 @@ import axios from 'axios';
 
 
 const UpdatePass = ({title,buttonText,openFlag,previewClose})=>{
+       const history = useHistory();
        const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [currentPass,setCurrentPass] = React.useState('');
@@ -63,6 +64,7 @@ const UpdatePass = ({title,buttonText,openFlag,previewClose})=>{
                      newPassword:newPass
               }).then((value)=>{
                      cb();
+                     history.push("/");
               })
               .catch((err)=>{
                      setNewPassError(err.data);
