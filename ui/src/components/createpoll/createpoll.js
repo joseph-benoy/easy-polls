@@ -17,6 +17,8 @@ const CreatePoll = ()=>{
        const [options,setOptions] = useState({});
        const [title,setTitle] = useState('');
        const [description,setDescription] = useState('');
+       const [dateError,setDateError] = useState('');
+       const [date,setDate] = useState('');
        var history = useHistory();
        const [openFlag,setOpenFlag] = useState(false);
        const getOptions = (count)=>{
@@ -64,6 +66,10 @@ const CreatePoll = ()=>{
                      setDescriptionError("Description can't be empty1");
                      flag = false;
               }
+              if(date===""){
+                     setDateError("Expiry date is required!");
+                     flag = false;
+              }
               if(Object.keys(options).length!==optionCount){
                      setOptionsError(`Options can't be empty!`);
                      flag = false;
@@ -99,6 +105,9 @@ const CreatePoll = ()=>{
                                           variant="outlined"
                                           placeholder="Description about the poll"
                                    />
+                            </Grid>
+                            <Grid item xs={12}>
+                                   <TextField helperText={dateError} error={dateError===''?false:true} onChange={(e)=>{setDate(e.target.value)}} placeholder="Expiry date" fullWidth id="expiry" type="date" variant="outlined" label="Expiry"/>
                             </Grid>
                             <Grid item xs={12}>
                                    <Typography variant="body1">Add options</Typography>
