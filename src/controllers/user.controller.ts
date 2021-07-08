@@ -82,5 +82,32 @@ export default{
               catch(err){
                      next(err);
               }
+       },
+       updateGeneral:async(req:Request,res:Response,next:NextFunction)=>{
+              try{
+                     User.updateOne(
+                            // @ts-ignore
+                            {_id:req.id},
+                            {
+                                   $set:
+                                          {
+                                                 // @ts-ignore
+                                                 firstName:req.body.firstName,
+                                                 lastName:req.body.lastName,
+                                                 email:req.body.email
+                                          }
+                            }
+                     
+                     )
+                     .then((value:any)=>{
+                            res.json(value)
+                     })
+                     .catch((err:any)=>{
+                            next(err);
+                     })
+              }
+              catch(err){   
+                     next(err);
+              }
        }
 }
