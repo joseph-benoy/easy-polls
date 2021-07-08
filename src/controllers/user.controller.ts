@@ -112,7 +112,7 @@ export default{
        },
        updatePassword:async(req:Request,res:Response,next:NextFunction)=>{
               try{
-                     const hash = await bcrypt.hash(req.body.password,10);
+                     const hash = await bcrypt.hash(req.body.currentPassword,10);
                      // @ts-ignore
                      User.findOne({_id:req.id},"password")
                      .then(async (value:any)=>{
@@ -135,7 +135,7 @@ export default{
                      })
               }
               catch(err){
-                     next(err);
+                     next(err.message);
               }
        }
 }
