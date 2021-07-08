@@ -103,7 +103,8 @@ const UpdatePass = ({title,buttonText,openFlag,previewClose})=>{
                                           />
                                    </Grid>
                                    <Grid container justify="flex-end">
-                                          <Button variant="contained" color="secondary" onClick={()=>{updateHandler(previewClose)}}>{buttonText}</Button>
+                                          <Button style={{marginRight:"2vh"}} variant="contained" color="secondary" onClick={previewClose}>Cancel</Button>
+                                          <Button variant="contained" color="primary" onClick={()=>{updateHandler(previewClose)}}>{buttonText}</Button>
                                    </Grid>
                             </Grid>
                      </div>
