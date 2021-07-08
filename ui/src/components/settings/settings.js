@@ -8,7 +8,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TextField from '@material-ui/core/TextField';
 import {Grid} from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import { Divider } from '@material-ui/core';
+import Updatepass from '../updatePass/updatepass';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,10 +23,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Settings() {
   const classes = useStyles();
-
+  const [openFlag,setOpenFlag] = React.useState(false);
   return (
          <>
          <Typography variant="h5" style={{marginBottom:"2vh"}}>Settings</Typography>
+          <Updatepass title="Update password" buttonText="save" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
     <div className={classes.root}>
       <Accordion>
         <AccordionSummary
@@ -63,7 +65,7 @@ export default function Settings() {
         <AccordionDetails>
               <Grid container>
                      <Grid >
-                            <Button variant="contained">Change password</Button>
+                            <Button variant="contained" onClick={()=>{setOpenFlag(true)}}>Change password</Button>
                      </Grid>
               </Grid>
         </AccordionDetails>
@@ -71,7 +73,7 @@ export default function Settings() {
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
+          aria-controls="panel3a-content"
           id="panel3a-header"
         >
           <Typography className={classes.heading}>Revoke</Typography>
