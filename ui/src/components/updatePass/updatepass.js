@@ -35,6 +35,9 @@ import { Grid } from '@material-ui/core';
 const UpdatePass = ({title,buttonText,openFlag,previewClose})=>{
        const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
+    const [currentPass,setCurrentPass] = React.useState('');
+    const [newPass,setNewPass] = React.useState('');
+    const [newPassRepeat,setNewPassRepeat] = React.useState('');
        return (
               <Modal
                      open = {openFlag}
@@ -45,13 +48,13 @@ const UpdatePass = ({title,buttonText,openFlag,previewClose})=>{
                             <Typography variant="h4">{title}</Typography><br/>
                             <Grid container spacing={2}> 
                                    <Grid item lg={4}>
-                                          <TextField fullWidth variant="outlined" type="password" name="currentPass" label="current password" /><br/><br/>
+                                          <TextField onChange={(e)=>{setCurrentPass(e.target.value)}} fullWidth variant="outlined" type="password" name="currentPass" label="current password" /><br/><br/>
                                    </Grid>
                                    <Grid item lg={4}>
-                                          <TextField fullWidth variant="outlined" type="password" name="newPass" label="new password" /><br/><br/>
+                                          <TextField  onChange={(e)=>{setNewPass(e.target.value)}} fullWidth variant="outlined" type="password" name="newPass" label="new password" /><br/><br/>
                                    </Grid>
                                    <Grid item lg={4}>
-                                          <TextField fullWidth variant="outlined" type="password" name="newPassRepeat" label="repeat new password" /><br/><br/>
+                                          <TextField onChange={(e)=>{setNewPassRepeat(e.target.value)}}  fullWidth variant="outlined" type="password" name="newPassRepeat" label="repeat new password" /><br/><br/>
                                    </Grid>
                                    <Grid container justify="flex-end">
                                           <Button variant="contained" color="secondary" onClick={previewClose}>{buttonText}</Button>
