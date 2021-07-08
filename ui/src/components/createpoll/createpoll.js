@@ -85,7 +85,7 @@ const CreatePoll = ()=>{
        return (
               <>
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
-                     <Grid container spacing={2}>
+                     <Grid container spacing={1}>
                             <Grid item xs={12}>
                                    <Typography variant="h5">Create poll</Typography>
                             </Grid>
@@ -107,7 +107,7 @@ const CreatePoll = ()=>{
                                    />
                             </Grid>
                             <Grid item xs={12}>
-                                   <TextField helperText={dateError} error={dateError===''?false:true} onChange={(e)=>{setDate(e.target.value)}} placeholder="Expiry date" fullWidth id="expiry" type="date" variant="outlined" label="Expiry"/>
+                                   <TextField helperText={dateError} error={dateError===''?false:true} onChange={(e)=>{setDate(e.target.value)}} placeholder="Expiry date" fullWidth id="expiry" type="date" variant="outlined"/>
                             </Grid>
                             <Grid item xs={12}>
                                    <Typography variant="body1">Add options</Typography>
