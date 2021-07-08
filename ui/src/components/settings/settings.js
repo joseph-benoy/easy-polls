@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import {Grid} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import Updatepass from '../updatePass/updatepass';
-
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +24,19 @@ const useStyles = makeStyles((theme) => ({
 export default function Settings() {
   const classes = useStyles();
   const [openFlag,setOpenFlag] = React.useState(false);
+  const [email,setEmail] = React.useState('');
+  const [firstName,setFirstName] = React.useState('');
+  const [lastName,setLastName] = React.useState('');
+  React.useEffect(()=>{
+    axios.get('/user/getuserdata').then((res)=>{
+      setEmail(res.data.email);
+      setFirstName(res.data.firstName);
+      setLastName(res.data.lastName);
+    })
+    .catch((err)=>{
+      console.log(err.data);
+    })
+  },[]);
   return (
          <>
          <Typography variant="h5" style={{marginBottom:"2vh"}}>Settings</Typography>
@@ -38,15 +51,15 @@ export default function Settings() {
           <Typography className={classes.heading}>General</Typography>
         </AccordionSummary>
         <AccordionDetails>
-               <Grid container>
+               <Grid container spacing={2}>
                      <Grid item xs={12}>
-                            <TextField fullWidth id="firstName" name="firstName" label="First name" />
+                            <TextField fullWidth value={firstName} id="firstName" name="firstName" label="First name" />
                      </Grid>
                      <Grid item xs={12}>
-                            <TextField fullWidth id="lastName" name="lastName" label="Last name" />
+                            <TextField fullWidth value={lastName} id="lastName" name="lastName" label="Last name" />
                      </Grid>
                      <Grid item xs={12}>
-                            <TextField fullWidth id="email" name="email" label="Email" />
+                            <TextField fullWidth value={email} id="email" name="email" label="Email" />
                      </Grid>
                      <Grid item xs={12} style={{marginTop:"2vh"}} container justify="flex-end">
                             <Button color="primary" variant="contained">Save</Button>
