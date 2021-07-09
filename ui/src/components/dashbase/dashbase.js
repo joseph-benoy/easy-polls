@@ -29,6 +29,7 @@ import Stats from '../stats/stats';
 import './dashbase.scss';
 import Settings from '../settings/settings';
 import Edit from '../edit/edit';
+import axios from 'axios';
 
 
 
@@ -115,7 +116,11 @@ export default function Dashbase() {
     }    
     setOpen(false);
   };
-
+  const logOut = ()=>{
+    axios.get("/user/logout").then((value)=>{
+      history.push("/");
+    }).catch((err)=>{history.push("/")});
+  }
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -185,7 +190,7 @@ export default function Dashbase() {
               <ListItemIcon><SettingsIcon/></ListItemIcon>
               <ListItemText primary="Settings" />
             </ListItem>
-            <ListItem button key="logout"  onClick={()=>{history.push("/dashboard/polls/logout")}}>
+            <ListItem button key="logout"  onClick={logOut}>
               <ListItemIcon><MeetingRoomIcon/></ListItemIcon>
               <ListItemText primary="Log Out" />
             </ListItem>
