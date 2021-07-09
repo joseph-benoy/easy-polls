@@ -84,12 +84,13 @@ const CreatePoll = ()=>{
        }
        const launchHandler = ()=>{
               if(checkFields()){
-                     axios.post('/poll/create',{
+                     let data = {
                             title:title,
                             description:description,
                             expiry:document.getElementById('expiry').valueAsNumber,
-                            options:options
-                     })
+                            options:Object.values(options)
+                     };
+                     axios.post('/poll/create',data)
                      .then((res)=>{
                             console.log(res.data);
                      })

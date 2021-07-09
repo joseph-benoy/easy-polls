@@ -6,11 +6,12 @@ export default {
        createPoll:async(req:Request,res:Response,next:NextFunction)=>{
               try{
                      var slag = ObjectId(Date.now()).toString();
+                     console.log(req.body.options);
                      let poll = new Poll({
                             title:req.body.title,
                             description:req.body.description,
                             expiry:req.body.expiry,
-                            options:JSON.parse(req.body.options),
+                            options:req.body.options,
                             // @ts-ignore
                             createdBy:req.id,
                             slag:slag
