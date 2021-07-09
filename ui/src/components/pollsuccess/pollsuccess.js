@@ -35,6 +35,17 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 const PollSuccess = ({title,urlSlag,open,cb})=>{
        const classes = useStyles();
        const history = useHistory();
+       const linkCopy = ()=>{
+              var elm = document.createElement("input");
+              elm.className = 'elm';
+              document.body.appendChild(elm);
+              elm.value = `${window.location.hostname}/vote/${urlSlag}`;
+              console.log(elm.value)
+              elm.select(0,99999999);
+              elm.select();
+              document.execCommand("copy");
+              document.body.removeChild(elm);
+       }
     const [modalStyle] = React.useState(getModalStyle);
        return (
               <Modal
@@ -45,8 +56,8 @@ const PollSuccess = ({title,urlSlag,open,cb})=>{
                      <div style={modalStyle} className={classes.paper}>
                             <Typography variant="h5">{title}</Typography>
                             <Typography  variant="body1">{`Your poll is now online. Share the following link with your audience.`}</Typography>
-                            <Typography style={{backgroundColor:"rgba(0,0,0,0.1)",borderRadius:"3px",padding:"0.5% 1%",color:"rgba(0,0,0,0.8)",fontFamily:"monospace",margin:"2vh",display:"table"}} variant="body2">{`easypolls.com/vote/${urlSlag}`}        
-                                   <IconButton aria-label="copy">
+                            <Typography style={{backgroundColor:"rgba(0,0,0,0.1)",borderRadius:"3px",padding:"0.5% 1%",color:"rgba(0,0,0,0.8)",fontFamily:"monospace",margin:"2vh",display:"table"}} variant="body2">{`${window.location.hostname}/vote/${urlSlag}`}        
+                                   <IconButton aria-label="copy" onClick={()=>{navigator.clipboard.writeText(`${window.location.hostname}/vote/${urlSlag}`)}}>
                                           <FileCopyIcon fontSize="small" />
                                    </IconButton>
                             </Typography>
