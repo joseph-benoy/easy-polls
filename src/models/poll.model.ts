@@ -27,6 +27,9 @@ const schema = new Schema({
        slag:{
               type:String,
               required:true
+       },
+       votes:{
+              type:Array
        }
 },{timestamps:true});
 
