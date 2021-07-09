@@ -1,6 +1,7 @@
 import { NextFunction, Request,Response } from 'express'
 const bcrypt = require('bcrypt');
 import Poll from '../models/poll.model';
+import User from '../models/user.model';
 
 export default {
        createPoll:async(req:Request,res:Response,next:NextFunction)=>{
@@ -19,7 +20,20 @@ export default {
                      .then(()=>{
                             poll.save()
                             .then((value:any)=>{
-                                   res.json(value)
+                                   // @ts-ignore
+                                   User.updateOne({_id:req.id},
+                                          {
+                                                 $push:{
+                                                        polls:value._id
+                                                 }
+                                          }
+                                   ).
+                                   then((value:any)=>{
+                                          res.json(value);
+                                   }).
+                                   catch((err:any)=>{
+                                          next(err.message)
+                                   })
                             })
                             .catch((err:any)=>{
                                    next(err);
