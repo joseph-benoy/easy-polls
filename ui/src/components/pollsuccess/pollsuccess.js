@@ -44,6 +44,7 @@ const PollSuccess = ({title,urlSlag,open,cb})=>{
                      <div style={modalStyle} className={classes.paper}>
                             <Typography variant="h5">{title}</Typography>
                             <Typography  variant="body1">{`Your poll is now online. Share the following link with your audience.`}</Typography>
+                            <Typography style={{backgroundColor:"rgba(0,0,0,0.1)",borderRadius:"3px",padding:"1% 2%",color:"rgba(0,0,0,0.8)",fontFamily:"monospace",margin:"2vh"}} variant="body2">{`easypolls.com/vote/${urlSlag}`}</Typography>
                             <Button variant="contained" color="secondary" onClick={cb}>close</Button>
                      </div>
               </Modal>

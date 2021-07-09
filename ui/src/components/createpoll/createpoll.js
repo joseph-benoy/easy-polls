@@ -94,7 +94,7 @@ const CreatePoll = ()=>{
                      };
                      axios.post('/poll/create',data)
                      .then((res)=>{
-                            console.log(res.data);
+                            setUrlSlag(res.data.slag);
                      })
                      .catch((err)=>{
                             console.error(err);
@@ -103,7 +103,7 @@ const CreatePoll = ()=>{
        }
        return (
               <>
-                     <PollSuccess urlSlag={urlSlag} open={true}/>
+                     <PollSuccess title="Poll created" urlSlag={urlSlag} open={true}/>
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
                      <Grid container spacing={1}>
                             <Grid item xs={12}>
