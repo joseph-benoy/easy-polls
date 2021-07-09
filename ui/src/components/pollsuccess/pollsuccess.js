@@ -3,11 +3,11 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { Typography } from '@material-ui/core';
-import { useHistory } from 'react-router';
 import { Grid } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
-   
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+
    function getModalStyle() {
        return {
               margin:"auto auto"
@@ -34,18 +34,6 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 const PollSuccess = ({title,urlSlag,open,cb})=>{
        const classes = useStyles();
-       const history = useHistory();
-       const linkCopy = ()=>{
-              var elm = document.createElement("input");
-              elm.className = 'elm';
-              document.body.appendChild(elm);
-              elm.value = `${window.location.hostname}/vote/${urlSlag}`;
-              console.log(elm.value)
-              elm.select(0,99999999);
-              elm.select();
-              document.execCommand("copy");
-              document.body.removeChild(elm);
-       }
     const [modalStyle] = React.useState(getModalStyle);
        return (
               <Modal
@@ -57,9 +45,17 @@ const PollSuccess = ({title,urlSlag,open,cb})=>{
                             <Typography variant="h5">{title}</Typography>
                             <Typography  variant="body1">{`Your poll is now online. Share the following link with your audience.`}</Typography>
                             <Typography style={{backgroundColor:"rgba(0,0,0,0.1)",borderRadius:"3px",padding:"0.5% 1%",color:"rgba(0,0,0,0.8)",fontFamily:"monospace",wordBreak:"break-all",margin:"2vh 0vh",whiteSpace:"initial"}} variant="body2">{`${window.location.hostname}/vote/${urlSlag}`}        
-                                   <IconButton aria-label="copy" onClick={()=>{navigator.clipboard.writeText(`${window.location.hostname}/vote/${urlSlag}`)}}>
+                                   
+                            <CopyToClipboard text={`${window.location.hostname}/vote/${urlSlag}`}>
+                                   <IconButton aria-label="copy">
                                           <FileCopyIcon fontSize="small" />
-                                   </IconButton>
+                                   </IconButton>    
+                            </CopyToClipboard>
+                                   
+                                   
+                                   
+                                   
+
                             </Typography>
                             <Grid container>
                                    <Grid item xs={12} container justify="flex-end">
