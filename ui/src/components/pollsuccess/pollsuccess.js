@@ -45,17 +45,11 @@ const PollSuccess = ({title,urlSlag,open,cb})=>{
                             <Typography variant="h5">{title}</Typography>
                             <Typography  variant="body1">{`Your poll is now online. Share the following link with your audience.`}</Typography>
                             <Typography style={{backgroundColor:"rgba(0,0,0,0.1)",borderRadius:"3px",padding:"0.5% 1%",color:"rgba(0,0,0,0.8)",fontFamily:"monospace",wordBreak:"break-all",margin:"2vh 0vh",whiteSpace:"initial"}} variant="body2">{`${window.location.hostname}/vote/${urlSlag}`}        
-                                   
-                            <CopyToClipboard text={`${window.location.hostname}/vote/${urlSlag}`}>
-                                   <IconButton aria-label="copy">
-                                          <FileCopyIcon fontSize="small" />
-                                   </IconButton>    
-                            </CopyToClipboard>
-                                   
-                                   
-                                   
-                                   
-
+                                   <CopyToClipboard text={`${window.location.hostname}/vote/${urlSlag}`}>
+                                          <IconButton aria-label="copy">
+                                                 <FileCopyIcon fontSize="small" />
+                                          </IconButton>    
+                                   </CopyToClipboard>
                             </Typography>
                             <Grid container>
                                    <Grid item xs={12} container justify="flex-end">

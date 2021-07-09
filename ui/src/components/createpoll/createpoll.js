@@ -10,8 +10,22 @@ import {useHistory} from 'react-router';
 import Preview from '../preview/preview';
 import axios from 'axios';
 import PollSuccess from '../pollsuccess/pollsuccess';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+       container: {
+         display: 'flex',
+         flexWrap: 'wrap',
+       },
+       textField: {
+         marginLeft: theme.spacing(1),
+         marginRight: theme.spacing(1),
+         width: "100%",
+       },
+     }));
 
 const CreatePoll = ()=>{
+       const classes = useStyles();
        const [titleError,setTitleError] = useState('');
        const [descriptionError,setDescriptionError] = useState('');
        const [optionsError,setOptionsError] = useState('');
@@ -129,7 +143,20 @@ const CreatePoll = ()=>{
                                    />
                             </Grid>
                             <Grid item xs={12}>
-                                   <TextField helperText={dateError} error={dateError===''?false:true} onChange={(e)=>{setDate(e.target.value)}} placeholder="Expiry date" fullWidth id="expiry" type="date" variant="outlined"/>
+                                   <form className={classes.container} noValidate>
+                                          <TextField
+                                                 helperText={dateError} 
+                                                 error={dateError===''?false:true}
+                                                 onChange={(e)=>{setDate(e.target.value)}}
+                                                 id="date"
+                                                 label="Expiry"
+                                                 type="date"
+                                                 className={classes.textField}
+                                                 InputLabelProps={{
+                                                 shrink: true,
+                                                 }}
+                                          />
+                                   </form>
                             </Grid>
                             <Grid item xs={12}>
                                    <Typography variant="body1">Add options</Typography>
