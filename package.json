@@ -23,6 +23,7 @@
   "homepage": "https://github.com/joseph-benoy/easy-polls#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "bson-objectid": "^2.0.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",

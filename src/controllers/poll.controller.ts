@@ -1,12 +1,11 @@
 import { NextFunction, Request,Response } from 'express'
-const bcrypt = require('bcrypt');
 import Poll from '../models/poll.model';
 import User from '../models/user.model';
-
+const ObjectId = require('bson-objectid');
 export default {
        createPoll:async(req:Request,res:Response,next:NextFunction)=>{
               try{
-                     var slag = await bcrypt.hash(req.body.title,1);
+                     var slag = ObjectId(Date.now()).toString();
                      let poll = new Poll({
                             title:req.body.title,
                             description:req.body.description,
