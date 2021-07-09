@@ -20,6 +20,7 @@ export default {
                      .then(()=>{
                             poll.save()
                             .then((value:any)=>{
+                                   let slagData = value.slag
                                    // @ts-ignore
                                    User.updateOne({_id:req.id},
                                           {
@@ -29,7 +30,7 @@ export default {
                                           }
                                    ).
                                    then((value:any)=>{
-                                          res.json(value);
+                                          res.json({slag:slagData});
                                    }).
                                    catch((err:any)=>{
                                           next(err.message)
