@@ -107,7 +107,7 @@ const CreatePoll = ()=>{
                             title:title,
                             description:description,
                             expiry:document.getElementById('expiry').valueAsNumber,
-                            options:Object.values(options)
+                            options:options
                      };
                      axios.post('/poll/create',data)
                      .then((res)=>{
@@ -120,7 +120,7 @@ const CreatePoll = ()=>{
               }
        }
        useEffect(()=>{
-              document.getElementById("date").min = new Date().toLocaleDateString().split("/").reverse().join("-");
+              document.getElementById("expiry").min = new Date().toLocaleDateString().split("/").reverse().join("-");
        },[]);
        const [errorModalFlag,setErrorModalFlag] = useState(false);
        return (
@@ -155,7 +155,7 @@ const CreatePoll = ()=>{
                                                  helperText={dateError} 
                                                  error={dateError===''?false:true}
                                                  onChange={(e)=>{setDate(e.target.value)}}
-                                                 id="date"
+                                                 id="expiry"
                                                  label="Expiry"
                                                  type="date"
                                                  className={classes.textField}
