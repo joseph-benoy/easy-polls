@@ -8,5 +8,6 @@ router.post('/login',userController.login);
 router.get('/getuserdata',jwt.validateToken,userController.getUserData);
 router.patch('/updategeneral',jwt.validateToken,userController.updateGeneral);
 router.patch('/updatepassword',jwt.validateToken,userController.updatePassword);
+router.get("/logout",jwt.validateToken,userController.logOut)
 export default router;
 
