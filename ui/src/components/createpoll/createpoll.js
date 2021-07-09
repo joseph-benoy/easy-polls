@@ -11,6 +11,8 @@ import Preview from '../preview/preview';
 import axios from 'axios';
 import PollSuccess from '../pollsuccess/pollsuccess';
 import { makeStyles } from '@material-ui/core/styles';
+import { useEffect } from 'react';
+
 
 const useStyles = makeStyles((theme) => ({
        container: {
@@ -117,6 +119,9 @@ const CreatePoll = ()=>{
                      })
               }
        }
+       useEffect(()=>{
+              document.getElementById("date").min = new Date().toLocaleDateString().split("/").reverse().join("-");
+       },[]);
        return (
               <>
                      <PollSuccess title="Poll created" urlSlag={urlSlag} open={pollSuccessFlag} cb={()=>{setPollSuccessFlag(false);history.push("/dashboard/polls/home")}}/>
