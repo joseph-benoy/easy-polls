@@ -10,7 +10,7 @@ export default {
                      title:req.body.title,
                      description:req.body.description,
                      expiry:req.body.expiry,
-                     options:req.body.options,
+                     options:JSON.stringify(req.body.options),
                      // @ts-ignore
                      createdBy:req.id,
                      slag:slag
