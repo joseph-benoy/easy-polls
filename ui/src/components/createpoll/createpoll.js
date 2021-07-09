@@ -107,7 +107,7 @@ const CreatePoll = ()=>{
                             title:title,
                             description:description,
                             expiry:document.getElementById('expiry').valueAsNumber,
-                            options:options
+                            options:Object.values(options)
                      };
                      axios.post('/poll/create',data)
                      .then((res)=>{
@@ -125,7 +125,7 @@ const CreatePoll = ()=>{
        const [errorModalFlag,setErrorModalFlag] = useState(false);
        return (
               <>
-                     <CModel title = "Something went wrong!" description="Currently we are unable to create poll for you. Please try again." buttonText = "close" open={errorModalFlag} cb={()=>{setErrorModalFlag(true)}} />
+                     <CModel title = "Something went wrong!" description="Currently we are unable to create poll for you. Please try again." buttonText = "close" open={errorModalFlag} cb={()=>{setErrorModalFlag(false)}} />
                      <PollSuccess title="Poll created" urlSlag={urlSlag} open={pollSuccessFlag} cb={()=>{setPollSuccessFlag(false);history.push("/dashboard/polls/home")}}/>
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
                      <Grid container spacing={1}>
