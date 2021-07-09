@@ -24,6 +24,7 @@ const CreatePoll = ()=>{
        const [urlSlag,setUrlSlag] = useState('');
        var history = useHistory();
        const [openFlag,setOpenFlag] = useState(false);
+       const [pollSuccessFlag,setPollSuccessFlag] = useState(false);
        const getOptions = (count)=>{
               let inputs = [];
               for(let i=1;i<=count&&i<=5;i++){
@@ -95,6 +96,7 @@ const CreatePoll = ()=>{
                      axios.post('/poll/create',data)
                      .then((res)=>{
                             setUrlSlag(res.data.slag);
+                            setPollSuccessFlag(true);
                      })
                      .catch((err)=>{
                             console.error(err);
@@ -103,7 +105,7 @@ const CreatePoll = ()=>{
        }
        return (
               <>
-                     <PollSuccess title="Poll created" urlSlag={urlSlag} open={true}/>
+                     <PollSuccess title="Poll created" urlSlag={urlSlag} open={pollSuccessFlag} cb={()=>{setPollSuccessFlag(false);history.push("/dashboard/polls/home")}}/>
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
                      <Grid container spacing={1}>
                             <Grid item xs={12}>
