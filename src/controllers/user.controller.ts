@@ -135,5 +135,17 @@ export default{
               catch(err){
                      next(err.message);
               }
+       },
+       logOut:async(req:Request,res:Response,next:NextFunction)=>{
+              try{
+                     res.cookie('access-token',"",{
+                            // @ts-ignore
+                            maxAge:new Date(0),
+                            httpOnly:true
+                        }).json({status:"logout"})
+              }
+              catch(err){
+                     next(err);
+              }
        }
 }
