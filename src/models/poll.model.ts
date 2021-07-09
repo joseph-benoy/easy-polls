@@ -32,7 +32,8 @@ const schema = new Schema({
               type:Array
        },
        views:{
-              type:Number
+              type:Number,
+              default:0
        }
 },{timestamps:true});
 

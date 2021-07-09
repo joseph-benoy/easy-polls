@@ -11,7 +11,13 @@ export default{
                                    next("Poll expired");
                             }
                             else{
-                                   res.json(value);
+                                   res.json({
+                                          title:value.title,
+                                          description:value.description,
+                                          expiry:value.expiry,
+                                          views:value.views,
+                                          options:value.options
+                                   });
                             }
                      })
                      .catch((err:any)=>{
