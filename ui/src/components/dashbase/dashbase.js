@@ -30,7 +30,7 @@ import './dashbase.scss';
 import Settings from '../settings/settings';
 import Edit from '../edit/edit';
 import axios from 'axios';
-
+import { useEffect } from 'react';
 
 
 
@@ -109,7 +109,11 @@ export default function Dashbase() {
     }
     setOpen(true);
   };
-
+  useEffect(()=>{
+    axios.get("/user/getuserdata").catch((err)=>{
+      history.push("/");
+    })
+  },[history]);
   const handleDrawerClose = () => {
     if(window.screen.availWidth<1199){
       document.getElementById('drawer').style.display = "none";
