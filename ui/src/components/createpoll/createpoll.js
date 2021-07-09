@@ -12,7 +12,7 @@ import axios from 'axios';
 import PollSuccess from '../pollsuccess/pollsuccess';
 import { makeStyles } from '@material-ui/core/styles';
 import { useEffect } from 'react';
-
+import CModel from '../modal/modal'
 
 const useStyles = makeStyles((theme) => ({
        container: {
@@ -115,15 +115,17 @@ const CreatePoll = ()=>{
                             setPollSuccessFlag(true);
                      })
                      .catch((err)=>{
-                            console.error(err);
+                            setErrorModalFlag(true);
                      })
               }
        }
        useEffect(()=>{
               document.getElementById("date").min = new Date().toLocaleDateString().split("/").reverse().join("-");
        },[]);
+       const [errorModalFlag,setErrorModalFlag] = useState(false);
        return (
               <>
+                     <CModel title = "Something went wrong!" description="Currently we are unable to create poll for you. Please try again." buttonText = "close" open={errorModalFlag} cb={()=>{setErrorModalFlag(true)}} />
                      <PollSuccess title="Poll created" urlSlag={urlSlag} open={pollSuccessFlag} cb={()=>{setPollSuccessFlag(false);history.push("/dashboard/polls/home")}}/>
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
                      <Grid container spacing={1}>
