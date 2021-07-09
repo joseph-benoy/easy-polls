@@ -30,7 +30,7 @@ export default {
                      })
               }
               catch(err){
-                     next(err);
+                     next(err.message);
               }
        }
 }
