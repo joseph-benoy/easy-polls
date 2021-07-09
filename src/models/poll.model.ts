@@ -30,6 +30,9 @@ const schema = new Schema({
        },
        votes:{
               type:Array
+       },
+       views:{
+              type:Number
        }
 },{timestamps:true});
 
