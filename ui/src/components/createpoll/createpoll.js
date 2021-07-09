@@ -126,7 +126,7 @@ const CreatePoll = ()=>{
        return (
               <>
                      <CModel title = "Something went wrong!" description="Currently we are unable to create poll for you. Please try again." buttonText = "close" open={errorModalFlag} cb={()=>{setErrorModalFlag(false)}} />
-                     <PollSuccess title="Poll created" urlSlag={urlSlag} open={pollSuccessFlag} cb={()=>{setPollSuccessFlag(false);history.push("/dashboard/polls/home")}}/>
+                     <PollSuccess expiry={date} title="Poll created" urlSlag={urlSlag} open={pollSuccessFlag} cb={()=>{setPollSuccessFlag(false);history.push("/dashboard/polls/home")}}/>
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
                      <Grid container spacing={1}>
                             <Grid item xs={12}>
