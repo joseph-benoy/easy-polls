@@ -10,3 +10,7 @@ let schema = new Schema({
               required:true
        }
 });
+
+const Vote = model('Vote',schema);
+
+export default Vote;
