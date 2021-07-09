@@ -12,6 +12,7 @@ app.use(cookieParser());
 
 app.use("/user",routes.userRouter);
 app.use("/poll",routes.pollRouter);
+app.use("/vote",routes.voteRouter);
 
 
 
