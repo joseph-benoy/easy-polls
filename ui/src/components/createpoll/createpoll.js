@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {useHistory} from 'react-router';
 import Preview from '../preview/preview';
+import axios from 'axios';
 
 const CreatePoll = ()=>{
        const [titleError,setTitleError] = useState('');
@@ -81,7 +82,22 @@ const CreatePoll = ()=>{
                      setOpenFlag(true);
               }
        }
-
+       const launchHandler = ()=>{
+              if(checkFields()){
+                     axios.post('/poll/create',{
+                            title:title,
+                            description:description,
+                            expiry:document.getElementById('expiry').valueAsNumber,
+                            options:options
+                     })
+                     .then((res)=>{
+                            console.log(res.data);
+                     })
+                     .catch((err)=>{
+                            console.error(err);
+                     })
+              }
+       }
        return (
               <>
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
@@ -107,7 +123,7 @@ const CreatePoll = ()=>{
                                    />
                             </Grid>
                             <Grid item xs={12}>
-                                   <TextField helperText={dateError} error={dateError===''?false:true} onChange={(e)=>{setDate(e.target.value)}} placeholder="Expiry date" fullWidth id="expiry" type="datetime-local" variant="outlined"/>
+                                   <TextField helperText={dateError} error={dateError===''?false:true} onChange={(e)=>{setDate(e.target.value)}} placeholder="Expiry date" fullWidth id="expiry" type="date" variant="outlined"/>
                             </Grid>
                             <Grid item xs={12}>
                                    <Typography variant="body1">Add options</Typography>
@@ -119,7 +135,7 @@ const CreatePoll = ()=>{
                                    <ButtonGroup variant="contained" color="secondary" aria-label="contained primary button group">
                                           <Button onClick={()=>{history.push("/dashboard/polls/home")}}>Cancel</Button>
                                           <Button onClick={previewOpen}>Preview</Button>
-                                          <Button>Launch</Button>
+                                          <Button onClick={launchHandler}>Launch</Button>
                                    </ButtonGroup>
                             </Grid>
                      </Grid>
