@@ -9,6 +9,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {useHistory} from 'react-router';
 import Preview from '../preview/preview';
 import axios from 'axios';
+import PollSuccess from '../pollsuccess/pollsuccess';
 
 const CreatePoll = ()=>{
        const [titleError,setTitleError] = useState('');
@@ -20,6 +21,7 @@ const CreatePoll = ()=>{
        const [description,setDescription] = useState('');
        const [dateError,setDateError] = useState('');
        const [date,setDate] = useState('');
+       const [urlSlag,setUrlSlag] = useState('');
        var history = useHistory();
        const [openFlag,setOpenFlag] = useState(false);
        const getOptions = (count)=>{
@@ -101,6 +103,7 @@ const CreatePoll = ()=>{
        }
        return (
               <>
+                     <PollSuccess urlSlag={urlSlag} open={true}/>
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
                      <Grid container spacing={1}>
                             <Grid item xs={12}>

@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { Typography } from '@material-ui/core';
+import { useHistory } from 'react-router';
 
 
    
@@ -30,8 +31,9 @@ import { Typography } from '@material-ui/core';
 
 
 
-const CModal = ({title,description,buttonText,open,cb})=>{
+const PollSuccess = ({title,urlSlag,open,cb})=>{
        const classes = useStyles();
+       const history = useHistory();
     const [modalStyle] = React.useState(getModalStyle);
        return (
               <Modal
@@ -40,12 +42,12 @@ const CModal = ({title,description,buttonText,open,cb})=>{
                      aria-describedby="simple-modal-description"
                      >
                      <div style={modalStyle} className={classes.paper}>
-                            <Typography variant="h4">{title}</Typography>
-                            <Typography  variant="body1">{description}</Typography>
-                            <Button variant="contained" color="secondary" onClick={cb}>{buttonText}</Button>
+                            <Typography variant="h5">{title}</Typography>
+                            <Typography  variant="body1">{`Your poll is now online. Share the following link with your audience.`}</Typography>
+                            <Button variant="contained" color="secondary" onClick={cb}>close</Button>
                      </div>
               </Modal>
        );
 }
 
-export default CModal;
+export default PollSuccess;
