@@ -90,6 +90,10 @@ const CreatePoll = ()=>{
                      setDateError("Expiry date is required!");
                      flag = false;
               }
+              if(Date.now()>document.getElementById('expiry').valueAsNumber){
+                     setDateError('Invalid expiry date!');
+                     flag = false;
+              }
               if(Object.keys(options).length!==optionCount){
                      setOptionsError(`Options can't be empty!`);
                      flag = false;
