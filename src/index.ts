@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/user",routes.userRouter);
-
+app.use("/poll",routes.pollRouter);
 
 
 

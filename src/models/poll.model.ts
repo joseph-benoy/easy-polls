@@ -1,4 +1,4 @@
-import mongoose,{Schema,model} from "mongoose";
+import {Schema,model} from "mongoose";
 
 const schema = new Schema({
        title:{
@@ -24,15 +24,11 @@ const schema = new Schema({
               type:Schema.Types.ObjectId,
               required:true
        },
-       createdOn:{
-              type:Date,
-              required:true
-       },
        slag:{
               type:String,
               required:true
        }
-});
+},{timestamps:true});
 
 const Poll = model('Poll',schema);
 
