@@ -4,15 +4,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -59,14 +56,14 @@ export default function Vote() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Grid container style={{padding:"5vh",overflow:"hidden"}}>
-              <Grid item xs={12}>
+      <Grid container style={{padding:"5vh",overflow:"hidden"}} spacing={2}>
+              <Grid item xs={12} container  justify="center">
                      <Typography variant="h4">{title}</Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} container  justify="center">
                      <Typography variant="h6">{description}</Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12}  container  justify={window.screen.availWidth<1199?"flex-start":"center"}>
                      <FormControl component="fieldset">
                             <RadioGroup aria-label="gender" name="gender1" >
                                    {
@@ -77,7 +74,7 @@ export default function Vote() {
                             </RadioGroup>
                      </FormControl>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12}  container  justify="center">
                      <Button variant="contained" size="large" color="primary" style={{marginTop:"2vh"}} fullWidth={window.screen.availWidth<1199?true:false}>Vote</Button>
               </Grid>
       </Grid>
