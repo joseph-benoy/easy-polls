@@ -8,7 +8,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
-
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +31,7 @@ export default function Vote() {
   const classes = useStyles();
   const [title,setTitle] = useState('');
   const [description,setDescription] = useState('');
-  const [options,setOptions] = useState('');
+  const [options,setOptions] = useState([]);
   const [expiry,setExpiry] = useState('');
   const [views,setViews] = useState('');
   const [choosen,setChoosen] = useState('');
@@ -55,23 +59,26 @@ export default function Vote() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Grid container>
+      <Grid container style={{padding:"5vh",overflow:"hidden"}}>
               <Grid item xs={12}>
-                     <Typography variant="h5">{title}</Typography>
+                     <Typography variant="h4">{title}</Typography>
               </Grid>
               <Grid item xs={12}>
-                     <Typography variant="body1">{description}</Typography>
+                     <Typography variant="h6">{description}</Typography>
               </Grid>
               <Grid item xs={12}>
                      <FormControl component="fieldset">
-                            <FormLabel component="legend">Gender</FormLabel>
-                            <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                            <FormControlLabel value="female" control={<Radio />} label="Female" />
-                            <FormControlLabel value="male" control={<Radio />} label="Male" />
-                            <FormControlLabel value="other" control={<Radio />} label="Other" />
-                            <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" />
+                            <RadioGroup aria-label="gender" name="gender1" >
+                                   {
+                                          options.map((value)=>(
+                                                 <FormControlLabel key={value} value={value} control={<Radio />} label={value} />
+                                          ))
+                                   }
                             </RadioGroup>
                      </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                     <Button variant="contained" size="large" color="primary" style={{marginTop:"2vh"}} fullWidth={window.screen.availWidth<1199?true:false}>Vote</Button>
               </Grid>
       </Grid>
     </div>
