@@ -75,7 +75,10 @@ export default function Vote() {
                      </FormControl>
               </Grid>
               <Grid item xs={12}  container  justify="center">
-                     <Button variant="contained" size="large" color="primary" style={{marginTop:"2vh"}} fullWidth={window.screen.availWidth<1199?true:false}>Vote</Button>
+                     <Button  variant="contained" size="large" color="primary" style={{marginTop:"2vh"}} fullWidth={window.screen.availWidth<1199?true:false}>Vote</Button>
+              </Grid>
+              <Grid item xs={12} container justify="center">
+                     <Typography variant="subtitle1">{views} views</Typography>
               </Grid>
       </Grid>
     </div>
