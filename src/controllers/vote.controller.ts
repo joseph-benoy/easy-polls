@@ -21,9 +21,30 @@ export default{
               try{
                      console.log("server");
                      console.log(req.query.ip,req.query.clientid);
-                     let cachedData = await getAsync.get(req.query.ip);
+                     let cachedData = await getAsync(req.query.ip);
                      if(cachedData===null){
-                            
+                           let newData = await setAsync(req.query.ip,req.query.clientid);
+                           Poll.findOne({slag:req.params.slag},'title description expiry options views')
+                           .then((value:any)=>{
+                                  if(new Date(value.expiry).getTime()<Date.now()){
+                                         next("Poll expired");
+                                  }
+                                  else{
+                                         res.json({
+                                                title:value.title,
+                                                description:value.description,
+                                                expiry:value.expiry,
+                                                views:value.views,
+                                                options:value.options
+                                         });
+                                  }
+                           })
+                           .catch((err:any)=>{
+                                  next(err.message);
+                           });
+                     }
+                     else{
+                            next("vote already casted");
                      }
               }
               catch(err){
