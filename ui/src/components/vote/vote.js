@@ -37,38 +37,29 @@ export default function Vote() {
   const [region,setRegion] = useState('');
   const [country,setCountry] = useState('');
   const [countryCode,setCountryCode] = useState('');
+  const [fingerprintId,setFingerprintId] = useState('');
   const fpPromise = FingerprintJS.load()
 
        useEffect(async()=>{
+
               axios.get("http://ip-api.com/json/")
               .then((response)=>{
                      setCity(response.data.city);
                      setRegion(response.data.region);
                      setCountry(response.data.country);
                      setCountryCode(response.data.countryCode);
-                     axios.get(`https://cors-anywhere.herokuapp.com/check.getipintel.net/check.php?ip=${response.data.query}&contact=cikova1846@ovooovo.com&format=json&flags=f`)
+                     axios.get(`/vote/${window.location.href.split("/").slice(-1)}`)
                      .then((value)=>{
-                            if(value.data.result<0.5){
-                                   axios.get(`/vote/${window.location.href.split("/").slice(-1)}`)
-                                   .then((value)=>{
-                                          setTitle(value.data.title);
-                                          setOptions(value.data.options);
-                                          setDescription(value.data.description);
-                                          setExpiry(value.data.expiry);
-                                          setViews(value.data.views);
-                                   })
-                                   .catch((err)=>{
-                                          if(err.response.data.error==="Poll expired"){
-                                                 
-                                          }
-                                   })
-                            }
-                            else{
-                                   console.log("Bad Ip");
-                            }
+                            setTitle(value.data.title);
+                            setOptions(value.data.options);
+                            setDescription(value.data.description);
+                            setExpiry(value.data.expiry);
+                            setViews(value.data.views);
                      })
                      .catch((err)=>{
-                            console.log(err.response.data);
+                            if(err.response.data.error==="Poll expired"){
+                                   
+                            }
                      })
               })
               .catch((err)=>{
