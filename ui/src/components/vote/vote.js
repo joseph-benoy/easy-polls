@@ -51,6 +51,7 @@ export default function Vote() {
                      const result = await fp.get();
                      const visitorId = result.visitorId;
                      setFingerprintId(visitorId);
+                     console.log("e");
                      console.log(`/vote/${window.location.href.split("/").slice(-1)}?clientid=${visitorId}&ip=${response.data.query}`);
                      axios.get(`/vote/${window.location.href.split("/").slice(-1)}?clientid=${visitorId}&ip=${response.data.query}`)
                      .then((value)=>{
