@@ -10,6 +10,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,18 +33,46 @@ export default function Vote() {
   const [expiry,setExpiry] = useState('');
   const [views,setViews] = useState('');
   const [choosen,setChoosen] = useState('');
-       useEffect(()=>{
-              axios.get(`/vote/${window.location.href.split("/").slice(-1)}`)
-              .then((value)=>{
-                     console.log(value.data);
-                     setTitle(value.data.title);
-                     setOptions(value.data.options);
-                     setDescription(value.data.description);
-                     setExpiry(value.data.expiry);
-                     setViews(value.data.views);
+  const [city,setCity] = useState('');
+  const [region,setRegion] = useState('');
+  const [country,setCountry] = useState('');
+  const [countryCode,setCountryCode] = useState('');
+  const fpPromise = FingerprintJS.load()
+
+       useEffect(async()=>{
+              axios.get("http://ip-api.com/json/")
+              .then((response)=>{
+                     setCity(response.data.city);
+                     setRegion(response.data.region);
+                     setCountry(response.data.country);
+                     setCountryCode(response.data.countryCode);
+                     axios.get(`https://cors-anywhere.herokuapp.com/check.getipintel.net/check.php?ip=${response.data.query}&contact=cikova1846@ovooovo.com&format=json&flags=f`)
+                     .then((value)=>{
+                            if(value.data.result<0.5){
+                                   axios.get(`/vote/${window.location.href.split("/").slice(-1)}`)
+                                   .then((value)=>{
+                                          setTitle(value.data.title);
+                                          setOptions(value.data.options);
+                                          setDescription(value.data.description);
+                                          setExpiry(value.data.expiry);
+                                          setViews(value.data.views);
+                                   })
+                                   .catch((err)=>{
+                                          if(err.response.data.error==="Poll expired"){
+                                                 
+                                          }
+                                   })
+                            }
+                            else{
+                                   console.log("Bad Ip");
+                            }
+                     })
+                     .catch((err)=>{
+                            console.log(err.response.data);
+                     })
               })
               .catch((err)=>{
-                     console.log(err.message);
+                     console.log(err.response.data);
               })
        },[]);
 
@@ -79,6 +108,9 @@ export default function Vote() {
               </Grid>
               <Grid item xs={12} container justify="center">
                      <Typography variant="subtitle1">{views} views</Typography>
+              </Grid>
+              <Grid item xs={12} container justify="center">
+                     <Typography variant="subtitle1">Poll expires on {new Date(expiry).toLocaleDateString('en-GB',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</Typography>
               </Grid>
       </Grid>
     </div>
