@@ -40,15 +40,21 @@ export default function Vote() {
   const [fingerprintId,setFingerprintId] = useState('');
   const fpPromise = FingerprintJS.load()
 
-       useEffect(async()=>{
+       useEffect(()=>{
 
               axios.get("http://ip-api.com/json/")
-              .then((response)=>{
+              .then(async (response)=>{
                      setCity(response.data.city);
                      setRegion(response.data.region);
                      setCountry(response.data.country);
                      setCountryCode(response.data.countryCode);
-                     axios.get(`/vote/${window.location.href.split("/").slice(-1)}`)
+                     const fp = await fpPromise;
+                     const result = await fp.get();
+                     const visitorId = result.visitorId;
+                     setFingerprintId(visitorId);
+                     axios.post(`/vote/${window.location.href.split("/").slice(-1)}`,{
+                            fingerPrint:visitorId
+                     })
                      .then((value)=>{
                             setTitle(value.data.title);
                             setOptions(value.data.options);
