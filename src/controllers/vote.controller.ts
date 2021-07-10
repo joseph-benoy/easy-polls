@@ -19,8 +19,6 @@ const setAsync = promisify(client.set).bind(client);
 export default{
        getPollData:async (req:Request,res:Response,next:NextFunction)=>{
               try{
-                     console.log("server");
-                     console.log(req.query.ip,req.query.clientid);
                      let cachedData = await getAsync(req.query.ip);
                      if(cachedData===null){
                            let newData = await setAsync(req.query.ip,req.query.clientid);
