@@ -10,3 +10,9 @@ mongoose.connect(url,{ useNewUrlParser: true ,useUnifiedTopology: true,useCreate
 }).catch((reason)=>{
        console.log("Failed");
 });
+const redis = require("redis");
+const client = redis.createClient(config.REDIS_PORT);
+
+client.on('error',(err:any)=>{
+       console.log("Redis failed!");
+})
