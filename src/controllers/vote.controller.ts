@@ -21,7 +21,6 @@ export default{
               try{
                      let cachedData = await getAsync(req.query.clientid);
                      if(cachedData===null){
-                           let newData = await setAsync(req.query.clientid,req.query.ip);
                            Poll.findOne({slag:req.params.slag},'title description expiry options views')
                            .then((value:any)=>{
                                   if(new Date(value.expiry).getTime()<Date.now()){

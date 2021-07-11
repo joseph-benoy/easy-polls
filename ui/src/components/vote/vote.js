@@ -38,6 +38,7 @@ export default function Vote() {
   const [country,setCountry] = useState('');
   const [countryCode,setCountryCode] = useState('');
   const [fingerprintId,setFingerprintId] = useState('');
+  const [ip,setIp] = useState('');
   const fpPromise = FingerprintJS.load()
        const [voteError,setVoteError] = useState('');
        useEffect(()=>{
@@ -47,6 +48,7 @@ export default function Vote() {
                      setRegion(response.data.region);
                      setCountry(response.data.country);
                      setCountryCode(response.data.countryCode);
+                     setIp(response.data.query);
                      const fp = await fpPromise;
                      const result = await fp.get();
                      const visitorId = result.visitorId;
@@ -82,6 +84,19 @@ export default function Vote() {
                      <VoteError title="Re-Casting!" description={voteError}/>
               );
        }
+       const castVote = ()=>{
+              axios.post('/cast',{
+                     choosen:choosen,
+                     clientid:fingerprintId,
+                     ip:ip
+              })
+              .then((value)=>{
+                     console.log(value.data);
+              })
+              .catch((err)=>{
+                     console.log(err.response.data);
+              })
+       }
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -100,7 +115,7 @@ export default function Vote() {
               </Grid>
               <Grid item xs={12}  container  justify={window.screen.availWidth<1199?"flex-start":"center"}>
                      <FormControl component="fieldset">
-                            <RadioGroup aria-label="gender" name="gender1" >
+                            <RadioGroup aria-label="vote" name="vote" onChange={(e)=>setChoosen(e.target.value)}>
                                    {
                                           options.map((value)=>(
                                                  <FormControlLabel key={value} value={value} control={<Radio />} label={value} />
@@ -110,7 +125,7 @@ export default function Vote() {
                      </FormControl>
               </Grid>
               <Grid item xs={12}  container  justify="center">
-                     <Button  variant="contained" size="large" color="primary" style={{marginTop:"2vh"}} fullWidth={window.screen.availWidth<1199?true:false}>Vote</Button>
+                     <Button onClick={castVote} variant="contained" size="large" color="primary" style={{marginTop:"2vh"}} fullWidth={window.screen.availWidth<1199?true:false}>Vote</Button>
               </Grid>
               <Grid item xs={12} container justify="center">
                      <Typography variant="subtitle1">{views} views</Typography>
