@@ -39,7 +39,7 @@ export default function Vote() {
   const [countryCode,setCountryCode] = useState('');
   const [fingerprintId,setFingerprintId] = useState('');
   const fpPromise = FingerprintJS.load()
-
+       const [voteError,setVoteError] = useState('');
        useEffect(()=>{
               axios.get("http://ip-api.com/json/")
               .then(async (response)=>{
@@ -61,7 +61,10 @@ export default function Vote() {
                      })
                      .catch((err)=>{
                             if(err.response.data.error==="Poll expired"){
-                                   
+                                   setVoteError("Poll has already expired");
+                            }
+                            else{
+                                   setVoteError("You have already casted the vote");
                             }
                      })
               })
@@ -69,7 +72,16 @@ export default function Vote() {
                      console.log(err.response.data);
               })
        },[]);
-
+       if(voteError==='Poll has already expired'){
+              return(
+                     <VoteError title="Expired" description={voteError}/>
+              );
+       }
+       if(voteError==='You have already casted the vote'){
+              return(
+                     <VoteError title="Re-Casting!" description={voteError}/>
+              );
+       }
   return (
     <div className={classes.root}>
       <AppBar position="static">
