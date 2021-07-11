@@ -11,7 +11,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FingerprintJS from '@fingerprintjs/fingerprintjs'
-
+import VoteError from '../voteError/voteError';
 
 const useStyles = makeStyles((theme) => ({
   root: {
