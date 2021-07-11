@@ -19,9 +19,9 @@ const setAsync = promisify(client.set).bind(client);
 export default{
        getPollData:async (req:Request,res:Response,next:NextFunction)=>{
               try{
-                     let cachedData = await getAsync(req.query.ip);
+                     let cachedData = await getAsync(req.query.clientid);
                      if(cachedData===null){
-                           let newData = await setAsync(req.query.ip,req.query.clientid);
+                           let newData = await setAsync(req.query.clientid,req.query.ip);
                            Poll.findOne({slag:req.params.slag},'title description expiry options views')
                            .then((value:any)=>{
                                   if(new Date(value.expiry).getTime()<Date.now()){
