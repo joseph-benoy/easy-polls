@@ -27,13 +27,20 @@ export default{
                                          next("Poll expired");
                                   }
                                   else{
-                                         res.json({
-                                                title:value.title,
-                                                description:value.description,
-                                                expiry:value.expiry,
-                                                views:value.views,
-                                                options:value.options
-                                         });
+                                         Poll.updateOne({slag:req.params.slag},{
+                                                $set:{views:value.views+1}
+                                         }).then(()=>{
+                                                 res.json({
+                                                        title:value.title,
+                                                        description:value.description,
+                                                        expiry:value.expiry,
+                                                        views:value.views,
+                                                        options:value.options
+                                                 });
+                                         })
+                                         .catch((err)=>{
+                                                next(err.message);
+                                         })
                                   }
                            })
                            .catch((err:any)=>{

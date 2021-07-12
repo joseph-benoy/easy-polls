@@ -40,7 +40,8 @@ export default function Vote() {
   const [fingerprintId,setFingerprintId] = useState('');
   const [ip,setIp] = useState('');
   const [pollId,setPollId] = useState('');
-  const fpPromise = FingerprintJS.load()
+  const fpPromise = FingerprintJS.load();
+  const [success,setSuccess] = useState(false);
        const [voteError,setVoteError] = useState('');
        useEffect(()=>{
               axios.get("http://ip-api.com/json/")
@@ -97,11 +98,28 @@ export default function Vote() {
                      countryCode:countryCode
               })
               .then((value)=>{
-                     console.log(value.data);
+                     setSuccess(true);
               })
               .catch((err)=>{
                      console.log(err);
               })
+       }
+       if(success){
+              return(
+              <div className={classes.root}>
+                     <AppBar position="static">
+                            <Toolbar>
+                            <Typography variant="h6" className={classes.title}>
+                            Easy Polls
+                            </Typography>
+                            </Toolbar>
+                     </AppBar>
+                     <Grid container style={{padding:"5vh",overflow:"hidden"}} spacing={2}>
+                            <Grid item xs={12} container  justify="center">
+                                   <Typography variant="h4">Vote casted successfully</Typography>
+                            </Grid>
+                     </Grid>
+              </div>);
        }
   return (
     <div className={classes.root}>
