@@ -50,7 +50,7 @@ export default{
        },
        castVote:async(req:Request,res:Response,next:NextFunction)=>{
               try{
-                     let cachedData = await getAsync(req.query.clientid);
+                     let cachedData = await getAsync(req.body.clientid);
                      if(cachedData!==null){
                             next("vote already casted");
                      }
