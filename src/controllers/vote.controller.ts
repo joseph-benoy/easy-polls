@@ -20,7 +20,7 @@ export default{
        getPollData:async (req:Request,res:Response,next:NextFunction)=>{
               try{
                      let cachedData = await getAsync(req.query.clientid);
-                     if(cachedData===null){
+                     if(cachedData===null||cachedData!==req.params.slag){
                            Poll.findOne({slag:req.params.slag},'title description expiry options views')
                            .then((value:any)=>{
                                   if(new Date(value.expiry).getTime()<Date.now()){
@@ -38,8 +38,8 @@ export default{
                                                         options:value.options
                                                  });
                                          })
-                                         .catch((err)=>{
-                                                next(err.message);
+                                         .catch((err:any)=>{
+                                                next(err.message)
                                          })
                                   }
                            })
@@ -58,7 +58,7 @@ export default{
        castVote:async(req:Request,res:Response,next:NextFunction)=>{
               try{
                      let cachedData = await getAsync(req.body.clientid);
-                     if(cachedData!==null){
+                     if(cachedData!==null||cachedData===req.params.slag){
                             next("vote already casted");
                      }
                      let newVote = new Vote({
