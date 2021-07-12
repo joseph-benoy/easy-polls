@@ -39,6 +39,7 @@ export default function Vote() {
   const [countryCode,setCountryCode] = useState('');
   const [fingerprintId,setFingerprintId] = useState('');
   const [ip,setIp] = useState('');
+  const [pollId,setPollId] = useState('');
   const fpPromise = FingerprintJS.load()
        const [voteError,setVoteError] = useState('');
        useEffect(()=>{
@@ -53,6 +54,7 @@ export default function Vote() {
                      const result = await fp.get();
                      const visitorId = result.visitorId;
                      setFingerprintId(visitorId);
+                     setPollId(window.location.href.split("/").slice(-1));
                      axios.get(`/vote/${window.location.href.split("/").slice(-1)}?clientid=${visitorId}&ip=${response.data.query}`)
                      .then((value)=>{
                             setTitle(value.data.title);
@@ -71,7 +73,7 @@ export default function Vote() {
                      })
               })
               .catch((err)=>{
-                     console.log(err.response.data);
+                     console.log(err);
               })
        },[]);
        if(voteError==='Poll has already expired'){
@@ -85,16 +87,20 @@ export default function Vote() {
               );
        }
        const castVote = ()=>{
-              axios.post('/cast',{
+              axios.post(`${pollId}/cast`,{
                      choosen:choosen,
                      clientid:fingerprintId,
-                     ip:ip
+                     ip:ip,
+                     city:city,
+                     region:region,
+                     country:country,
+                     countryCode:countryCode
               })
               .then((value)=>{
                      console.log(value.data);
               })
               .catch((err)=>{
-                     console.log(err.response.data);
+                     console.log(err);
               })
        }
   return (

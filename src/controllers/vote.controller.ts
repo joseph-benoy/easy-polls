@@ -47,5 +47,41 @@ export default{
               catch(err){
                      next(err.message);
               }
+       },
+       castVote:async(req:Request,res:Response,next:NextFunction)=>{
+              try{
+                     let cachedData = await getAsync(req.query.clientid);
+                     if(cachedData!==null){
+                            next("vote already casted");
+                     }
+                     let newVote = new Vote({
+                            option:req.body.choosen,
+                            city:req.body.city,
+                            region:req.body.region,
+                            country:req.body.country,
+                            countryCode:req.body.countryCode
+                     });
+                     newVote.validate()
+                     .then(()=>{
+                            Poll.updateOne({
+                                   slag:req.params.slag
+                            },{
+                                   $push:{votes:newVote}
+                            })
+                            .then((value:any)=>{
+                                   setAsync(req.body.clientid,req.params.slag);
+                                   res.json(value);
+                            })
+                            .catch((err:any)=>{
+                                   next(err.message);
+                            })
+                     })
+                     .catch((err:any)=>{
+                            next(err.message)
+                     })
+              }
+              catch(err){
+                     next(err.message);
+              }
        }
 }
