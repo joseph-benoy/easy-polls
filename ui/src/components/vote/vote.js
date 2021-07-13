@@ -12,6 +12,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import VoteError from '../voteError/voteError';
+import {useHistory} from 'react-router';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Vote() {
   const classes = useStyles();
+  const history = useHistory();
   const [title,setTitle] = useState('');
   const [description,setDescription] = useState('');
   const [options,setOptions] = useState([]);
@@ -67,6 +70,11 @@ export default function Vote() {
                      .catch((err)=>{
                             if(err.response.data.error==="Poll expired"){
                                    setVoteError("Poll has already expired");
+                            }
+                            else if(err.response.data.error==="user not authenticated"){
+                                   setVoteError("Login to your account to vote");
+                                   console.log(`${window.location.href.split("/").slice(-1)}`);
+                                   history.push(`/?vote=${window.location.href.split("/").slice(-1)}`);  
                             }
                             else{
                                    setVoteError("You have already casted the vote");
