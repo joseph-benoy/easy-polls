@@ -19,7 +19,8 @@ const setAsync = promisify(client.set).bind(client);
 export default{
        getPollData:async (req:Request,res:Response,next:NextFunction)=>{
               try{
-                     let cachedData = await getAsync(req.query.clientid);
+                     // @ts-ignore
+                     let cachedData = await getAsync(req.id);
                      if(cachedData===null||cachedData!==req.params.slag){
                            Poll.findOne({slag:req.params.slag},'title description expiry options views')
                            .then((value:any)=>{
@@ -57,7 +58,8 @@ export default{
        },
        castVote:async(req:Request,res:Response,next:NextFunction)=>{
               try{
-                     let cachedData = await getAsync(req.body.clientid);
+                     // @ts-ignore
+                     let cachedData = await getAsync(req.id);
                      if(cachedData!==null||cachedData===req.params.slag){
                             next("vote already casted");
                      }
@@ -76,7 +78,8 @@ export default{
                                    $push:{votes:newVote}
                             })
                             .then((value:any)=>{
-                                   setAsync(req.body.clientid,req.params.slag);
+                                   // @ts-ignore
+                                   setAsync(req.id,req.params.slag);
                                    res.json(value);
                             })
                             .catch((err:any)=>{
