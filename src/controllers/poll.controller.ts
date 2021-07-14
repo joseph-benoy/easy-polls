@@ -49,7 +49,14 @@ export default {
        },
        getAll:async (req:Request,res:Response,next:NextFunction)=>{
               try{
-                     
+                     // @ts-ignore
+                     Poll.find({createdBy:req.id}).lean()
+                     .then((value:[])=>{
+                            res.json(value);
+                     })
+                     .catch((err:any)=>{
+                            next(err.message);
+                     })
               }
               catch(err){
                      next(err.message);

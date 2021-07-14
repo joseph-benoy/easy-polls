@@ -16,7 +16,7 @@ import CModel from '../modal/modal'
 const Edit = ()=>{
        const [polls,setPolls] = useState([]);
        useState(()=>{
-              axios.get("/polls/getall")
+              axios.get("/poll/getall")
               .then((value)=>{
                      setPolls(value);
               })
@@ -29,8 +29,15 @@ const Edit = ()=>{
                      <Grid item xs={12}>
                             <Typography variant="h5">Polls</Typography>
                      </Grid>
+                     <Grid item xs={12}>
+                            {
+                                   polls.map((value,index)=>(
+                                          <p>{index}</p>
+                                   ))
+                            }
+                     </Grid>
               </Grid>
        );
 }
 
-export default React.memo(Edit);
+export default Edit;
