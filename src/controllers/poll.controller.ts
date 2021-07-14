@@ -46,5 +46,13 @@ export default {
               catch(err){
                      next(err.message);
               }
+       },
+       getAll:async (req:Request,res:Response,next:NextFunction)=>{
+              try{
+                     
+              }
+              catch(err){
+                     next(err.message);
+              }
        }
 }
