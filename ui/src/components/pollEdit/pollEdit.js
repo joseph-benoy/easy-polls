@@ -68,7 +68,6 @@ const EditPoll = ()=>{
                      ...options,
                      [event.target.name]:value
               });
-              console.log(options);
        }
        const getOptions = useCallback((count)=>{
               let inputs = [];
@@ -134,7 +133,7 @@ const EditPoll = ()=>{
                             title:title,
                             description:description,
                             expiry:document.getElementById('expiry').valueAsNumber,
-                            options:options
+                            options:Object.values(options)
                      };
                      axios.post('/poll/create',data)
                      .then((res)=>{
