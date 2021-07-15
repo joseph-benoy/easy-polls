@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Typography from '@material-ui/core/Typography';
 import {Grid} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
@@ -8,11 +8,12 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {useHistory} from 'react-router';
 import Preview from '../preview/preview';
-import axios from 'axios';
 import PollSuccess from '../pollsuccess/pollsuccess';
 import { makeStyles } from '@material-ui/core/styles';
-import { useEffect } from 'react';
 import CModel from '../modal/modal'
+import axios from 'axios';
+
+
 
 const useStyles = makeStyles((theme) => ({
        container: {
@@ -26,21 +27,36 @@ const useStyles = makeStyles((theme) => ({
        },
      }));
 
-const EditPoll = (props)=>{
+const EditPoll = ()=>{
        const classes = useStyles();
        const [titleError,setTitleError] = useState('');
        const [descriptionError,setDescriptionError] = useState('');
        const [optionsError,setOptionsError] = useState('');
        const [optionCount,setOptionCount] = useState(2);
        const [options,setOptions] = useState({});
-       const [title,setTitle] = useState(props.title);
-       const [description,setDescription] = useState(props.description);
+       const [title,setTitle] = useState('');
+       const [description,setDescription] = useState('');
        const [dateError,setDateError] = useState('');
-       const [date,setDate] = useState(props.date);
-       const [urlSlag,setUrlSlag] = useState(props.slag);
+       const [date,setDate] = useState('');
+       const [urlSlag,setUrlSlag] = useState('');
        var history = useHistory();
        const [openFlag,setOpenFlag] = useState(false);
        const [pollSuccessFlag,setPollSuccessFlag] = useState(false);
+       useEffect(()=>{
+              document.getElementById("expiry").min = new Date().toLocaleDateString().split("/").reverse().join("-");
+              axios.get(`/vote/${window.location.href.split("/").slice(-1)}`)
+              .then((value)=>{
+                     setTitle(value.data.title);
+                     setDescription(value.data.description);
+                     setOptionCount(value.data.options.length);
+                     setOptions(value.data.options);
+                     setDate(value.data.expiry.substr(0,value.data.expiry.indexOf("T")));
+                     //console.log(value.data.expiry.substr(0,value.data.expiry.indexOf("T")));
+              })
+              .catch((err)=>{
+                     console.log(err.response.data);
+              })
+       },[]);
        const getOptions = (count)=>{
               let inputs = [];
               for(let i=1;i<=count&&i<=5;i++){
@@ -123,9 +139,6 @@ const EditPoll = (props)=>{
                      })
               }
        }
-       useEffect(()=>{
-              document.getElementById("expiry").min = new Date().toLocaleDateString().split("/").reverse().join("-");
-       },[]);
        const [errorModalFlag,setErrorModalFlag] = useState(false);
        return (
               <>
@@ -137,10 +150,11 @@ const EditPoll = (props)=>{
                                    <Typography variant="h5">Edit poll</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                   <TextField helperText={titleError} error={titleError===''?false:true} onChange={(e)=>{setTitle(e.target.value)}} placeholder="Poll's title" fullWidth id="title" type="text" variant="outlined" label="Title"/>
+                                   <TextField value={title} helperText={titleError} error={titleError===''?false:true} onChange={(e)=>{setTitle(e.target.value)}} placeholder="Poll's title" fullWidth id="title" type="text" variant="outlined" label="Title"/>
                             </Grid>
                             <Grid item xs={12}>
                                    <TextField
+                                          value={description}
                                           helperText={descriptionError}
                                           error={descriptionError===''?false:true}
                                           onChange={(e)=>{setDescription(e.target.value)}}
@@ -156,6 +170,7 @@ const EditPoll = (props)=>{
                             <Grid item xs={12}>
                                    <form className={classes.container} noValidate>
                                           <TextField
+                                          value={date}
                                                  helperText={dateError} 
                                                  error={dateError===''?false:true}
                                                  onChange={(e)=>{setDate(e.target.value)}}

@@ -22,7 +22,7 @@ export default{
                      // @ts-ignore
                      let cachedData = await getAsync(req.id);
                      if(cachedData===null||cachedData!==req.params.slag){
-                           Poll.findOne({slag:req.params.slag},'title description expiry options views')
+                           Poll.findOne({slag:req.params.slag})
                            .then((value:any)=>{
                                   if(new Date(value.expiry).getTime()<Date.now()){
                                          next("Poll expired");
