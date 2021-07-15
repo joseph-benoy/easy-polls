@@ -20,6 +20,8 @@ import { FixedSizeList } from 'react-window';
 import StarIcon from '@material-ui/icons/Star';
 import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,8 +59,12 @@ const Edit = ()=>{
                          <List component="nav" className={classes.root} aria-label="contacts">
                               {
                                    polls.map((value,index)=>(
-                                        <ListItem button key={index}>
-                                             <ListItemText primary={value.title} />
+                                        <ListItem button key={value.slag}>
+                                             <ListItemText  primary={value.title} />
+                                             <ListItemIcon>
+                                                       {value.views}
+                                                       <VisibilityIcon style={{marginLeft:"3vw"}} fontSize="small"/>
+                                             </ListItemIcon>
                                         </ListItem>
                                    ))
                               }
