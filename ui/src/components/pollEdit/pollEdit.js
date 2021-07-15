@@ -60,10 +60,11 @@ const EditPoll = ()=>{
        const getOptions = (count)=>{
               let inputs = [];
               for(let i=1;i<=count&&i<=5;i++){
+                     let optionValue = options[i-1];
                      if(i===5||i!==count){
                             inputs.push(
                                    <>
-                                   <TextField  error={optionsError===''?false:true} helperText={optionsError} fullWidth key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
+                                   <TextField value={optionValue} error={optionsError===''?false:true} helperText={optionsError} fullWidth key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
                                    <br/>
                                    <br/>
                                    </>
@@ -72,7 +73,7 @@ const EditPoll = ()=>{
                      else{
                             inputs.push(
                                    <>
-                                          <TextField error={optionsError===''?false:true} helperText={optionsError} fullWidth  key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
+                                          <TextField value={optionValue} error={optionsError===''?false:true} helperText={optionsError} fullWidth  key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
                                                  <Grid item xs={12} container justify="flex-end">
                                                         <IconButton onClick={()=>{setOptionCount(optionCount+1)}}  variant="contained" color="primary">
                                                                <AddCircleIcon fontSize="large"/>
