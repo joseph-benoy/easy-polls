@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Edit = ()=>{
+     const history = useHistory();
      const classes = useStyles();
        const [polls,setPolls] = useState([]);
        useEffect(()=>{
@@ -43,12 +44,8 @@ const Edit = ()=>{
                      console.log(err.message);
               });
        },[]);
-       const getRows = ()=>{
-         let list = [];
-         for(let i in polls){
-              list.push(<p>{i}</p>);
-         }
-         return list;
+       const editPollHandler = (slag)=>{
+               history.push("/dashboard/polls/edit/"+slag);
        }
        return(
               <Grid container spacing={2}>
@@ -59,7 +56,7 @@ const Edit = ()=>{
                          <List component="nav" className={classes.root} aria-label="contacts">
                               {
                                    polls.map((value,index)=>(
-                                        <ListItem button key={value.slag}>
+                                        <ListItem button key={value.slag} onClick={()=>{editPollHandler(value.slag)}}>
                                              <ListItemText  primary={value.title} />
                                              <ListItemIcon>
                                                        {value.views}
