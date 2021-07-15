@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useCallback} from 'react';
 import Typography from '@material-ui/core/Typography';
 import {Grid} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
@@ -49,22 +49,35 @@ const EditPoll = ()=>{
                      setTitle(value.data.title);
                      setDescription(value.data.description);
                      setOptionCount(value.data.options.length);
-                     setOptions(value.data.options);
                      setDate(value.data.expiry.substr(0,value.data.expiry.indexOf("T")));
-                     //console.log(value.data.expiry.substr(0,value.data.expiry.indexOf("T")));
+                     let obj = {};
+                     for(let i in value.data.options){
+                            obj[`option${i}`] = value.data.options[i];
+                     }
+                     setOptions(obj);
+                     console.log(obj);
               })
               .catch((err)=>{
                      console.log(err.response.data);
               })
        },[]);
-       const getOptions = (count)=>{
+       const handleOptionsChange = (event)=>{
+              event.preventDefault();
+              const value = event.target.value
+              setOptions({
+                     ...options,
+                     [event.target.name]:value
+              });
+              console.log(options);
+       }
+       const getOptions = useCallback((count)=>{
               let inputs = [];
               for(let i=1;i<=count&&i<=5;i++){
-                     let optionValue = options[i-1];
+                     let optionValue = options[`option${i-1}`]
                      if(i===5||i!==count){
                             inputs.push(
                                    <>
-                                   <TextField value={optionValue} error={optionsError===''?false:true} helperText={optionsError} fullWidth key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
+                                   <TextField  value={optionValue} error={optionsError===''?false:true} helperText={optionsError} fullWidth key={i} placeholder={`option ${i}`}  type="text" name={`option${i-1}`} onChange={handleOptionsChange}/>
                                    <br/>
                                    <br/>
                                    </>
@@ -73,7 +86,7 @@ const EditPoll = ()=>{
                      else{
                             inputs.push(
                                    <>
-                                          <TextField value={optionValue} error={optionsError===''?false:true} helperText={optionsError} fullWidth  key={i} placeholder={`option ${i}`}  type="text" name={`option${i}`} onChange={handleOptionsChange}/>
+                                          <TextField value={optionValue} error={optionsError===''?false:true} helperText={optionsError} fullWidth  key={i} placeholder={`option ${i}`}  type="text" name={`option${i-1}`} onChange={handleOptionsChange}/>
                                                  <Grid item xs={12} container justify="flex-end">
                                                         <IconButton onClick={()=>{setOptionCount(optionCount+1)}}  variant="contained" color="primary">
                                                                <AddCircleIcon fontSize="large"/>
@@ -85,14 +98,7 @@ const EditPoll = ()=>{
                      }
               }
               return inputs;
-       }
-       const handleOptionsChange = (event)=>{
-              const value = event.target.value
-              setOptions({
-                     ...options,
-                     [event.target.name]:value
-              });
-       }
+       },[optionCount,options]);
        const  checkFields= ()=>{
               let flag = true;
               if(title===""){
@@ -128,7 +134,7 @@ const EditPoll = ()=>{
                             title:title,
                             description:description,
                             expiry:document.getElementById('expiry').valueAsNumber,
-                            options:Object.values(options)
+                            options:options
                      };
                      axios.post('/poll/create',data)
                      .then((res)=>{
