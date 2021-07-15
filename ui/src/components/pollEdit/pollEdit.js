@@ -133,9 +133,10 @@ const EditPoll = ()=>{
                             title:title,
                             description:description,
                             expiry:document.getElementById('expiry').valueAsNumber,
-                            options:Object.values(options)
+                            options:Object.values(options),
+                            slag:`${window.location.href.split("/").slice(-1)}`
                      };
-                     axios.post('/poll/create',data)
+                     axios.patch('/poll/update',data)
                      .then((res)=>{
                             setUrlSlag(res.data.slag);
                             setPollSuccessFlag(true);

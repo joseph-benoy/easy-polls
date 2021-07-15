@@ -66,7 +66,7 @@ export default {
               try{
                      Poll.updateOne(
                             // @ts-ignore
-                            {_id:req.id},
+                            {slag:req.body.slag},
                             {
                                    $set:{
                                           title:req.body.title,
@@ -74,6 +74,11 @@ export default {
                                           expiry:req.body.expiry,
                                           options:req.body.options
                                    }
+                            }).then((value:any)=>{
+                                   res.json(value);
+                            })
+                            .catch((err:any)=>{
+                                   next(err.message);
                             })
               }
               catch(err){
