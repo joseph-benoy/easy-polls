@@ -61,5 +61,23 @@ export default {
               catch(err){
                      next(err.message);
               }
+       },
+       updatePoll:async(req:Request,res:Response,next:NextFunction)=>{
+              try{
+                     Poll.updateOne(
+                            // @ts-ignore
+                            {_id:req.id},
+                            {
+                                   $set:{
+                                          title:req.body.title,
+                                          description:req.body.description,
+                                          expiry:req.body.expiry,
+                                          options:req.body.options
+                                   }
+                            })
+              }
+              catch(err){
+                     next(err.message);
+              }
        }
 }
