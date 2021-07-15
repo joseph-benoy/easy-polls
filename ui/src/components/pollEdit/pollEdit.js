@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
        },
      }));
 
-const CreatePoll = (props)=>{
+const EditPoll = (props)=>{
        const classes = useStyles();
        const [titleError,setTitleError] = useState('');
        const [descriptionError,setDescriptionError] = useState('');
@@ -134,7 +134,7 @@ const CreatePoll = (props)=>{
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
                      <Grid container spacing={1}>
                             <Grid item xs={12}>
-                                   <Typography variant="h5">Create poll</Typography>
+                                   <Typography variant="h5">Edit poll</Typography>
                             </Grid>
                             <Grid item xs={12}>
                                    <TextField helperText={titleError} error={titleError===''?false:true} onChange={(e)=>{setTitle(e.target.value)}} placeholder="Poll's title" fullWidth id="title" type="text" variant="outlined" label="Title"/>
@@ -187,4 +187,4 @@ const CreatePoll = (props)=>{
        );
 }
 
-export default React.memo(CreatePoll);
+export default React.memo(EditPoll);
