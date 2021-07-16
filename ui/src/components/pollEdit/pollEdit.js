@@ -44,7 +44,7 @@ const EditPoll = ()=>{
        const [pollSuccessFlag,setPollSuccessFlag] = useState(false);
        useEffect(()=>{
               document.getElementById("expiry").min = new Date().toLocaleDateString().split("/").reverse().join("-");
-              axios.get(`/vote/${window.location.href.split("/").slice(-1)}`)
+              axios.get(`/poll/${window.location.href.split("/").slice(-1)}`)
               .then((value)=>{
                      setTitle(value.data.title);
                      setDescription(value.data.description);
