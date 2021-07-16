@@ -55,7 +55,6 @@ const EditPoll = ()=>{
                             obj[`option${i}`] = value.data.options[i];
                      }
                      setOptions(obj);
-                     console.log(obj);
               })
               .catch((err)=>{
                      console.log(err.response.data);

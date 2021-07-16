@@ -75,11 +75,24 @@ export default {
                                           options:req.body.options
                                    }
                             }).then((value:any)=>{
-                                   res.json(value);
+                                   res.json({slag:req.body.slag});
                             })
                             .catch((err:any)=>{
                                    next(err.message);
                             })
+              }
+              catch(err){
+                     next(err.message);
+              }
+       },
+       getPollData:async (req:Request,res:Response,next:NextFunction)=>{
+              try{
+                     Poll.findOne({slag:req.params.slag}).then((value:any)=>{
+                            res.json(value);
+                     })
+                     .catch((err:any)=>{
+                            next(err.message);
+                     })
               }
               catch(err){
                      next(err.message);
