@@ -50,7 +50,7 @@ export default {
        getAll:async (req:Request,res:Response,next:NextFunction)=>{
               try{
                      // @ts-ignore
-                     Poll.find({createdBy:req.id}).lean()
+                     Poll.find({createdBy:req.id},'title views').lean()
                      .then((value:[])=>{
                             res.json(value);
                      })
