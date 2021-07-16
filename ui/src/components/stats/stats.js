@@ -12,10 +12,11 @@ import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: "100%",
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+    width:"100%"
   },
 }));
 const Stats = ()=>{
@@ -26,13 +27,16 @@ const Stats = ()=>{
        const [title,setTitle] = useState('');
        const [date,setDate] = useState('');
        const [urlSlag,setUrlSlag] = useState('');
+       const [pollList,setPollList] = useState([]);
        const handleChange = (event) => {
          setPollSelect(event.target.value);
        };
        useEffect(()=>{
               axios.get(`/poll/getall`)
               .then((value)=>{
-                     
+                     setPollList(value.data.map((value,index)=>{
+                          return value.title;  
+                     }));
               })
               .catch((err)=>{
                      console.log(err.response.data);
@@ -49,10 +53,13 @@ const Stats = ()=>{
                                    <Select
                                    labelId="demo-simple-select-label"
                                    id="demo-simple-select"
-                                   value={pollSelect}
                                    onChange={handleChange}
                                    >
-
+                                          {
+                                                 pollList.map((value,index)=>{
+                                                        return <MenuItem key={index} value={index}>{value}</MenuItem>
+                                                 })
+                                          }
                                    </Select>
                             </FormControl>
                      </Grid>
