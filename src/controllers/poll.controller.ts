@@ -50,7 +50,7 @@ export default {
        getAll:async (req:Request,res:Response,next:NextFunction)=>{
               try{
                      // @ts-ignore
-                     Poll.find({createdBy:req.id},'title views').lean()
+                     Poll.find({createdBy:req.id},'title views slag').lean()
                      .then((value:[])=>{
                             res.json(value);
                      })
@@ -89,6 +89,80 @@ export default {
               try{
                      Poll.findOne({slag:req.params.slag}).then((value:any)=>{
                             res.json(value);
+                     })
+                     .catch((err:any)=>{
+                            next(err.message);
+                     })
+              }
+              catch(err){
+                     next(err.message);
+              }
+       },
+       getPollStats:async(req:Request,res:Response,next:NextFunction)=>{
+              try{
+                     // @ts-ignore
+                     Poll.findOne({slag:req.params.slag})
+                     .then((value:any)=>{
+                            let resultByOptions:{} = {};
+                            for(let key of value.options){
+                                   // @ts-ignore
+                                   resultByOptions[key] = 0;
+                            }
+                            let options = Object.keys(resultByOptions); 
+                            for(let vote of value.votes){
+                                   // @ts-ignore
+                                   resultByOptions[vote.option]++;
+                            }
+                            let resultByCountry = {};
+                            let resultByCity = {};
+                            for(let vote of value.votes){
+                                   // @ts-ignore
+                                   if(vote.country in resultByCountry){
+                                          // @ts-ignore
+                                          resultByCountry[vote.country][vote.option]++;
+                                   }
+                                   else{
+                                          // @ts-ignore
+                                          resultByCountry[vote.country] = {};
+                                          for(let opt of options){
+                                                 // @ts-ignore
+                                                 resultByCountry[vote.country][opt] = 0;
+                                          }
+                                          // @ts-ignore
+                                          resultByCountry[vote.country][vote.option]++;
+                                   }                
+                                   // @ts-ignore
+                                   if(vote.city in resultByCity){
+                                          // @ts-ignore
+                                          resultByCity[vote.city].result[vote.option]++;
+                                   }
+                                   else{
+                                          // @ts-ignore
+                                          resultByCity[vote.city] = {};
+                                          // @ts-ignore
+                                          resultByCity[vote.city].country = vote.country;
+                                          // @ts-ignore
+                                          resultByCity[vote.city].result = {};
+                                          for(let opt of options){
+                                                 // @ts-ignore
+                                                 resultByCity[vote.city].result[opt] = 0;
+                                          }
+                                          // @ts-ignore
+                                          resultByCity[vote.city].result[vote.option]++;
+                                   }
+                            }
+                            res.json({
+                                   title:value.title,
+                                   description:value.description,
+                                   options:options,
+                                   slag:value.slag,
+                                   views:value.views,
+                                   expiry:value.expiry,
+                                   createdAt:value.createdAt,
+                                   resultByOptions:resultByOptions,
+                                   resultByCountry:resultByCountry,
+                                   resultByCity:resultByCity
+                            });
                      })
                      .catch((err:any)=>{
                             next(err.message);
