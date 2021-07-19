@@ -10,6 +10,7 @@ import Select from '@material-ui/core/Select';
 import axios from 'axios';
 import OptionChart from '../optionchart/optionchart';
 import CountryResult from '../resultByCountry/resultByCountry';
+import CityResult from '../resultByCity/resultByCity';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -90,6 +91,13 @@ const Stats = ()=>{
                               <Grid item xs={12} lg={7}   container justify="center">
                                    {
                                         (!('title' in pollData))?null:<CountryResult values={pollData.resultByCountry} options={pollData.options}/>
+                                   }
+                              </Grid>
+                         </Grid>
+                         <Grid item xs={12}  container justify="center">
+                              <Grid item xs={12} lg={7}   container justify="center">
+                                   {
+                                        (!('title' in pollData))?null:<CityResult values={pollData.resultByCity} options={pollData.options}/>
                                    }
                               </Grid>
                          </Grid>
