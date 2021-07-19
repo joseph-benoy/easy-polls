@@ -22,9 +22,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   paper:{
-     display: "flex",
-     justifyContent: "center",
-     alignItems: "center"
+     textAlign:"center"  
   }
 }));
 const Stats = ()=>{
@@ -98,19 +96,19 @@ const Stats = ()=>{
                      <Grid xs={12} item container spacing={5}>
                               <Grid item lg={4} xs={12}>
                                    <Paper className={classes.paper} elevation={1} variant="elevation">
-                                        <Typography variant="h3">{getDuration()}</Typography><br/>
+                                        <Typography variant="h3">{getDuration()}</Typography>
                                         <Typography variant="h5">Days</Typography>
                                    </Paper>
                               </Grid>
                               <Grid item lg={4} xs={12}>
                                    <Paper className={classes.paper} elevation={1} variant="elevation">
-                                        <Typography variant="h3">{pollData.views}</Typography><br/>
+                                        <Typography variant="h3">{pollData.views}</Typography>
                                         <Typography variant="h5">Views</Typography>
                                    </Paper>
                               </Grid>
                               <Grid item lg={4} xs={12}>
                                    <Paper className={classes.paper} elevation={1} variant="elevation">
-                                        <Typography variant="h3">{getInteractions()}</Typography><br/>
+                                        <Typography variant="h3">{getInteractions()}</Typography>
                                         <Typography variant="h5">Reactions</Typography>
                                    </Paper>
                               </Grid>
