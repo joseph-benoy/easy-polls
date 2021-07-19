@@ -89,7 +89,7 @@ const Stats = ()=>{
                          <Grid item xs={12}  container justify="center">
                               <Grid item xs={12} lg={7}   container justify="center">
                                    {
-                                        (!('title' in pollData))?null:<CountryResult values={Object.values(pollData.resultByOptions)} options={pollData.options}/>
+                                        (!('title' in pollData))?null:<CountryResult values={pollData.resultByCountry} options={pollData.options}/>
                                    }
                               </Grid>
                          </Grid>
