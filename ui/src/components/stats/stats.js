@@ -11,6 +11,7 @@ import axios from 'axios';
 import OptionChart from '../optionchart/optionchart';
 import CountryResult from '../resultByCountry/resultByCountry';
 import CityResult from '../resultByCity/resultByCity';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -58,6 +59,16 @@ const Stats = ()=>{
                      console.log(err.response);
               })
        },[]);
+       const getInteractions = ()=>{
+          let voteCount = 0;
+          for(let options in pollData.resultByOptions){
+               voteCount+=pollData.resultByOptions[options];
+          }
+          return voteCount;
+       }
+       const getDuration = ()=>{
+            return Math.ceil(((new Date())- (new Date(pollData.createdAt)))/(1000*60*60*24));
+       }
        return (
               <Grid container spacing={2}>
                      <Grid item xs={12}>
@@ -78,6 +89,26 @@ const Stats = ()=>{
                                           }
                                    </Select>
                             </FormControl>
+                     </Grid>
+                     <Grid xs={12} item container spacing={5}>
+                              <Grid item lg={4} xs={12}>
+                                   <Paper elevation={3} variant="outlined">
+                                        <Typography variant="h3">{pollData.views}</Typography>
+                                        <Typography variant="h5">Views</Typography>
+                                   </Paper>
+                              </Grid>
+                              <Grid item lg={4} xs={12}>
+                                   <Paper elevation={3} variant="outlined">
+                                        <Typography variant="h3">{getInteractions()}</Typography>
+                                        <Typography variant="h5">Reactions</Typography>
+                                   </Paper>
+                              </Grid>
+                              <Grid item lg={4} xs={12}>
+                                   <Paper elevation={3} variant="outlined">
+                                        <Typography variant="h3">{getDuration()}</Typography>
+                                        <Typography variant="h5">Days</Typography>
+                                   </Paper>
+                              </Grid>
                      </Grid>
                      <Grid item container xs={12} spacing={5}>
                          <Grid item xs={12}  container justify="center">
