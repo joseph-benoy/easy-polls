@@ -4,7 +4,6 @@ import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
@@ -28,11 +27,6 @@ const useStyles = makeStyles((theme) => ({
 const Stats = ()=>{
        const classes = useStyles();
        const [pollSelect, setPollSelect] = useState('');
-       const [optionCount,setOptionCount] = useState(2);
-       const [options,setOptions] = useState({});
-       const [title,setTitle] = useState('');
-       const [date,setDate] = useState('');
-       const [urlSlag,setUrlSlag] = useState('');
        const [pollList,setPollList] = useState([]);
        const [pollData,setPollData] = useState({});
        const handleChange = (event) => {
@@ -93,27 +87,32 @@ const Stats = ()=>{
                                    </Select>
                             </FormControl>
                      </Grid>
-                     <Grid xs={12} item container spacing={5}>
-                              <Grid item lg={4} xs={12}>
-                                   <Paper className={classes.paper} elevation={1} variant="elevation">
-                                        <Typography variant="h3">{getDuration()}</Typography>
-                                        <Typography variant="h5">Days</Typography>
-                                   </Paper>
+                     {
+                          (!("title" in pollData))?null:(
+                              <Grid xs={12} item container spacing={5}>
+                                   <Grid item lg={4} xs={12}>
+                                        <Paper className={classes.paper} elevation={1} variant="elevation">
+                                             <Typography variant="h3">{getDuration()}</Typography>
+                                             <Typography variant="h5">Days</Typography>
+                                        </Paper>
+                                   </Grid>
+                                   <Grid item lg={4} xs={12}>
+                                        <Paper className={classes.paper} elevation={1} variant="elevation">
+                                             <Typography variant="h3">{pollData.views}</Typography>
+                                             <Typography variant="h5">Views</Typography>
+                                        </Paper>
+                                   </Grid>
+                                   <Grid item lg={4} xs={12}>
+                                        <Paper className={classes.paper} elevation={1} variant="elevation">
+                                             <Typography variant="h3">{getInteractions()}</Typography>
+                                             <Typography variant="h5">Reactions</Typography>
+                                        </Paper>
+                                   </Grid>
                               </Grid>
-                              <Grid item lg={4} xs={12}>
-                                   <Paper className={classes.paper} elevation={1} variant="elevation">
-                                        <Typography variant="h3">{pollData.views}</Typography>
-                                        <Typography variant="h5">Views</Typography>
-                                   </Paper>
-                              </Grid>
-                              <Grid item lg={4} xs={12}>
-                                   <Paper className={classes.paper} elevation={1} variant="elevation">
-                                        <Typography variant="h3">{getInteractions()}</Typography>
-                                        <Typography variant="h5">Reactions</Typography>
-                                   </Paper>
-                              </Grid>
+                          )
+                     }
 
-                     </Grid>
+
                      <Grid item container xs={12} spacing={5}>
                          <Grid item xs={12}  container justify="center">
                               <Grid item xs={12} lg={5}   container justify="center">
