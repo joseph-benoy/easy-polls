@@ -9,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
 import OptionChart from '../optionchart/optionchart';
+import CountryResult from '../resultByCountry/resultByCountry';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -57,7 +58,7 @@ const Stats = ()=>{
               })
        },[]);
        return (
-              <Grid container spacing={1}>
+              <Grid container spacing={2}>
                      <Grid item xs={12}>
                             <Typography variant="h6">Stats</Typography>
                      </Grid>
@@ -77,11 +78,23 @@ const Stats = ()=>{
                                    </Select>
                             </FormControl>
                      </Grid>
-                     <Grid item xs={12}>
-                          {
-                              (!('title' in pollData))?null:<OptionChart values={Object.values(pollData.resultByOptions)} options={pollData.options}/>
-                          }
+                     <Grid item container xs={12} spacing={5}>
+                         <Grid item xs={12}  container justify="center">
+                              <Grid item xs={12} lg={5}   container justify="center">
+                                   {
+                                        (!('title' in pollData))?null:<OptionChart values={Object.values(pollData.resultByOptions)} options={pollData.options}/>
+                                   }
+                              </Grid>
+                         </Grid>
+                         <Grid item xs={12}  container justify="center">
+                              <Grid item xs={12} lg={7}   container justify="center">
+                                   {
+                                        (!('title' in pollData))?null:<CountryResult values={Object.values(pollData.resultByOptions)} options={pollData.options}/>
+                                   }
+                              </Grid>
+                         </Grid>
                      </Grid>
+                     
               </Grid>
        );
 }

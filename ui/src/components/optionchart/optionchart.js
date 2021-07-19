@@ -3,7 +3,6 @@ import { Pie } from 'react-chartjs-2';
 import { Typography } from '@material-ui/core';
 
 const OptionChart = (props)=>{
-       console.log(props);
        const data = {
               labels:[...props.options],
               datasets:[
