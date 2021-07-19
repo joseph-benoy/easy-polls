@@ -8,6 +8,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
+import OptionChart from '../optionchart/optionchart';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -27,6 +28,7 @@ const Stats = ()=>{
        const [date,setDate] = useState('');
        const [urlSlag,setUrlSlag] = useState('');
        const [pollList,setPollList] = useState([]);
+       const [pollData,setPollData] = useState({});
        const handleChange = (event) => {
               let value = event.target.value;
               setPollSelect(value);
@@ -36,6 +38,7 @@ const Stats = ()=>{
               console.log(`poll/stats/${slag}`);
               axios.get(`/poll/stats/${slag}`)
               .then((value)=>{
+                    setPollData(value.data);
                      console.log(value.data);
               })
               .catch((err)=>{
@@ -56,7 +59,7 @@ const Stats = ()=>{
        return (
               <Grid container spacing={1}>
                      <Grid item xs={12}>
-                            <Typography variant="h5">Stats</Typography>
+                            <Typography variant="h6">Stats</Typography>
                      </Grid>
                      <Grid item xs={12}>
                             <FormControl className={classes.formControl}>
@@ -73,6 +76,11 @@ const Stats = ()=>{
                                           }
                                    </Select>
                             </FormControl>
+                     </Grid>
+                     <Grid item xs={12}>
+                          {
+                              (!('title' in pollData))?null:<OptionChart values={Object.values(pollData.resultByOptions)} options={pollData.options}/>
+                          }
                      </Grid>
               </Grid>
        );
