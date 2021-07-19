@@ -73,7 +73,7 @@ const Stats = ()=>{
             return Math.ceil(((new Date())- (new Date(pollData.createdAt)))/(1000*60*60*24));
        }
        return (
-              <Grid container spacing={2}>
+              <Grid container spacing={3}>
                      <Grid item xs={12}>
                             <Typography variant="h6">Stats</Typography>
                      </Grid>
