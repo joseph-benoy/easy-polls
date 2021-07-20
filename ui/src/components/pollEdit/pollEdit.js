@@ -16,6 +16,9 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloseIcon from '@material-ui/icons/Close';
 import UpdateIcon from '@material-ui/icons/Update';
+import DeleteModal from '../deleteModal/deleteModal';
+
+
 
 const useStyles = makeStyles((theme) => ({
        container: {
@@ -44,6 +47,7 @@ const EditPoll = ()=>{
        var history = useHistory();
        const [openFlag,setOpenFlag] = useState(false);
        const [pollSuccessFlag,setPollSuccessFlag] = useState(false);
+       const [pollDelete,setPollDelete] = useState(false);
        useEffect(()=>{
               document.getElementById("expiry").min = new Date().toLocaleDateString().split("/").reverse().join("-");
               axios.get(`/poll/${window.location.href.split("/").slice(-1)}`)
@@ -159,6 +163,7 @@ const EditPoll = ()=>{
        const [errorModalFlag,setErrorModalFlag] = useState(false);
        return (
               <>
+                     <DeleteModal buttonText = "close" open={pollDelete} cb={()=>{setPollDelete(false)}}/>
                      <CModel title = "Something went wrong!" description="Currently we are unable to create poll for you. Please try again." buttonText = "close" open={errorModalFlag} cb={()=>{setErrorModalFlag(false)}} />
                      <PollSuccess expiry={date} title="Poll created" urlSlag={urlSlag} open={pollSuccessFlag} cb={()=>{setPollSuccessFlag(false);history.push("/dashboard/polls/home")}}/>
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
