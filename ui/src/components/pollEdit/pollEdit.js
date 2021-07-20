@@ -148,7 +148,13 @@ const EditPoll = ()=>{
               }
        }
        const deleteHandler = ()=>{
-              
+              axios.delete(`/poll/delete?slag=${window.location.href.split("/").slice(-1)}`)
+              .then((value)=>{
+                     console.log(value.data);
+              })
+              .catch((err)=>{
+                     console.log(err.message);
+              });
        }
        const [errorModalFlag,setErrorModalFlag] = useState(false);
        return (

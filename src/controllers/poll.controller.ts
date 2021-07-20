@@ -171,5 +171,21 @@ export default {
               catch(err){
                      next(err.message);
               }
+       },
+       deletePoll:async(req:Request,res:Response,next:NextFunction)=>{
+              try{
+                     Poll.deleteOne({slag:req.query.slag})
+                     // @ts-ignore
+                     .then((value)=>{
+                            res.json(value);
+                     })
+                     // @ts-ignore
+                     .catch((err)=>{
+                            next(err.message);
+                     })
+              }
+              catch(err){
+                     next(err.message);
+              }
        }
 }
