@@ -154,7 +154,7 @@ const EditPoll = ()=>{
        const deleteHandler = ()=>{
               axios.delete(`/poll/delete?slag=${window.location.href.split("/").slice(-1)}`)
               .then((value)=>{
-                     console.log(value.data);
+                     setPollDelete(true);
               })
               .catch((err)=>{
                      console.log(err.message);
@@ -163,7 +163,7 @@ const EditPoll = ()=>{
        const [errorModalFlag,setErrorModalFlag] = useState(false);
        return (
               <>
-                     <DeleteModal buttonText = "close" open={pollDelete} cb={()=>{setPollDelete(false)}}/>
+                     <DeleteModal buttonText = "close" open={pollDelete} cb={()=>{setPollDelete(false);history.push("/dashboard/polls/edit");}}/>
                      <CModel title = "Something went wrong!" description="Currently we are unable to create poll for you. Please try again." buttonText = "close" open={errorModalFlag} cb={()=>{setErrorModalFlag(false)}} />
                      <PollSuccess expiry={date} title="Poll created" urlSlag={urlSlag} open={pollSuccessFlag} cb={()=>{setPollSuccessFlag(false);history.push("/dashboard/polls/home")}}/>
                      <Preview  options={options}    title={title} description={description} buttonText="Close" openFlag={openFlag} previewClose={()=>{setOpenFlag(false)}}/>
