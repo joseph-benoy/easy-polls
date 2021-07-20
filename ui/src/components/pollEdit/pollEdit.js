@@ -12,8 +12,10 @@ import PollSuccess from '../pollsuccess/pollsuccess';
 import { makeStyles } from '@material-ui/core/styles';
 import CModel from '../modal/modal'
 import axios from 'axios';
-
-
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CloseIcon from '@material-ui/icons/Close';
+import UpdateIcon from '@material-ui/icons/Update';
 
 const useStyles = makeStyles((theme) => ({
        container: {
@@ -145,6 +147,9 @@ const EditPoll = ()=>{
                      })
               }
        }
+       const deleteHandler = ()=>{
+              
+       }
        const [errorModalFlag,setErrorModalFlag] = useState(false);
        return (
               <>
@@ -198,9 +203,10 @@ const EditPoll = ()=>{
                             </Grid>
                             <Grid item container xs={12} justify="center">
                                    <ButtonGroup variant="contained" color="secondary" aria-label="contained primary button group">
-                                          <Button onClick={()=>{history.push("/dashboard/polls/home")}}>Cancel</Button>
-                                          <Button onClick={previewOpen}>Preview</Button>
-                                          <Button onClick={launchHandler}>Launch</Button>
+                                          <Button onClick={()=>{history.push("/dashboard/polls/home")}}><CloseIcon/>Cancel</Button>
+                                          <Button onClick={deleteHandler}><DeleteIcon/>Delete</Button>
+                                          <Button onClick={previewOpen}><VisibilityIcon/>Preview</Button>
+                                          <Button onClick={launchHandler}><UpdateIcon/>Update</Button>
                                    </ButtonGroup>
                             </Grid>
                      </Grid>

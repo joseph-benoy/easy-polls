@@ -20,7 +20,6 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 
 
-
 const useStyles = makeStyles((theme) => ({
        root: {
          width: '100%',
@@ -54,9 +53,10 @@ const PollList = ()=>{
                                    polls.map((value,index)=>(
                                         <ListItem button key={value.slag} onClick={()=>{editPollHandler(value.slag)}}>
                                              <ListItemText  primary={value.title} />
+
                                              <ListItemIcon>
                                                        {value.views}
-                                                       <VisibilityIcon style={{marginLeft:"3vw"}} fontSize="small"/>
+                                                       <VisibilityIcon style={{marginLeft:"2vw"}} fontSize="small"/>
                                              </ListItemIcon>
                                         </ListItem>
                                    ))
