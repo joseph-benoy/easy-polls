@@ -209,7 +209,7 @@ const EditPoll = ()=>{
                             </Grid>
                             <Grid item container xs={12} justify="center">
                                    <ButtonGroup variant="contained" color="secondary" aria-label="contained primary button group">
-                                          <Button onClick={()=>{history.push("/dashboard/polls/home")}}><CloseIcon/>Cancel</Button>
+                                          <Button onClick={()=>{history.push("/dashboard/polls/edit")}}><CloseIcon/>Cancel</Button>
                                           <Button onClick={deleteHandler}><DeleteIcon/>Delete</Button>
                                           <Button onClick={previewOpen}><VisibilityIcon/>Preview</Button>
                                           <Button onClick={launchHandler}><UpdateIcon/>Update</Button>
