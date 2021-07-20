@@ -99,6 +99,7 @@ export default {
               }
        },
        getPollStats:async(req:Request,res:Response,next:NextFunction)=>{
+              console.log("sgregrg");
               try{
                      // @ts-ignore
                      Poll.findOne({slag:req.params.slag})
